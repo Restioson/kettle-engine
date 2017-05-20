@@ -26,6 +26,7 @@ allprojects {
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
+        ktxVersion = '1.9.6-b3'
     }
 
     repositories {
@@ -129,6 +130,8 @@ project(":core") {
         compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.0"
         compile "com.github.czyzby:gdx-lml-vis:1.9.1.9.6"
         compile "com.github.czyzby:gdx-lml:1.9.1.9.6"
+        compile "io.github.libktx:ktx-async:$ktxVersion"
+        compile "io.github.libktx:ktx-assets:$ktxVersion"
     }
 }
 
