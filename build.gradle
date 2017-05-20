@@ -27,6 +27,7 @@ allprojects {
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
         ktxVersion = '1.9.6-b3'
+        dokka_version = '0.9.13'
     }
 
     repositories {
@@ -34,6 +35,7 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     }
 }
 
