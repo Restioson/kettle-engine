@@ -23,7 +23,7 @@ interface ContentPackage {
     fun dispose()
 
     /**
-     * Called on pause of application by libGDX, by Kettle, at the end of it's lifecycle, or before [io.github.restioson.kettle.Kettle.dispose][dispose] is called.
+     * Called on pause of application by libGDX, by Kettle, at the end of it's lifecycle, or before [dispose][io.github.restioson.kettle.Kettle.dispose] is called.
      *
     */
     fun pause()

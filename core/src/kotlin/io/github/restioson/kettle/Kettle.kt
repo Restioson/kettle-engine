@@ -52,11 +52,11 @@ class Kettle : Game() {
     }
 
     /**
-     * Schedules an asset for loading by AssetManager.load
+     * Schedules an asset for loading by [AssetManager.load](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html#load--)
      *
      * @param assetDescriptor [AssetDescriptor](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetDescriptor.html) of the desired asset
      *
-     * TODO https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetDescriptor.html
+     *
      * @throws GdxRuntimeException asset not loaded
      * @throws GdxRuntimeException no loader for type
      * @throws GdxRuntimeException couldn't load dependencies of asset

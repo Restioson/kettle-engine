@@ -25,13 +25,12 @@ buildscript {
 
 dokka {
 
-    includes = ['module.md']
     outputFormat = "html"
     outputDirectory = "$buildDir/dokkaJavadoc"
 
     linkMapping {
         dir = "src/kotlin/"
-        url = "https://github.com/Restioson/kettle-engine/src/"
+        url = "https://github.com/Restioson/kettle-engine/tree/master/core/src/kotlin"
         suffix = "#L"
     }
 
