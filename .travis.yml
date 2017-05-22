@@ -1,8 +1,12 @@
-language: java
+language: android
+
+android:
+  components:
+    - build-tools-20.0.0
+    - android-20
 
 jdk:
   - oraclejdk8
-  - android
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -13,10 +17,13 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+before_deploy:
+  - gradle desktop:dist
+  - gradle android:assembleRelease
+
 install:
   - gradle assemble
   - gradle check
 
 script:
   - gradle dokka
-  - gradle :desktop:build
