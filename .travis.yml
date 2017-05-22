@@ -14,5 +14,4 @@ cache:
 
 script:
   - gradle dokka
-  - cd desktop
-  - gradle build
+  - gradle :desktop:build
