@@ -12,6 +12,10 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+install:
+  - gradle assemble
+  - gradle check
+
 script:
   - gradle dokka
   - gradle :desktop:build
