@@ -17,8 +17,3 @@ before_deploy:
 
 script:
   - gradle dokka
-
-notifications:
-    webhooks:
-       - https://discordapp.com/api/webhooks/316947495555039232/xDmXAcvo3srcvh0kmwyKQd12oZP5NAfV35vwLo1LrMd5IYBi42xBhNjv7Ho6M4r8zfFv
-       - https://discordapp.com/api/webhooks/316954468098768900/0K8nA735uuV0rXw7y0ya3hyOq-JInlN-ZYNKP5MUMLOp0gQOTnsHTBfh1P31WOBnJxC3
