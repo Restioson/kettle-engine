@@ -1,9 +1,4 @@
-language: android
-
-android:
-  components:
-    - build-tools-20.0.0
-    - android-20
+language: java
 
 jdk:
   - oraclejdk8
@@ -19,7 +14,6 @@ cache:
 
 before_deploy:
   - gradle desktop:dist
-  - gradle android:assembleRelease
 
 install:
   - gradle assemble
