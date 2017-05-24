@@ -1,7 +1,7 @@
 package io.github.restioson.kettle
 
-import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Engine
+import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor
@@ -10,9 +10,10 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.GdxRuntimeException
-import io.github.restioson.kettle.api.entity.*
-
-// Can i haz test web hook?
+import io.github.restioson.kettle.api.entity.GraphicsComponent
+import io.github.restioson.kettle.api.entity.PositionComponent
+import io.github.restioson.kettle.api.entity.RequiresComponent
+import io.github.restioson.kettle.api.entity.RequiresComponentException
 
 /**
  * Main engine class. Exposes some methods relating to the engine for use in ContentPackages
