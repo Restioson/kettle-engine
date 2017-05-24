@@ -9,16 +9,16 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.utils.GdxRuntimeException
+import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.entity.GraphicsComponent
 import io.github.restioson.kettle.api.entity.PositionComponent
 import io.github.restioson.kettle.api.entity.RequiresComponent
 import io.github.restioson.kettle.api.entity.RequiresComponentException
 
 /**
- * Main engine class. Exposes some methods relating to the engine for use in ContentPackages
+ * Main engine class, and [io.github.restioson.kettle.api.Kettle][Kettle] implementation
  */
-class Kettle : Game() {
+class Engine : Game(), Kettle {
 
     private lateinit var batch: SpriteBatch
     private lateinit var assetManager: AssetManager
@@ -65,46 +65,16 @@ class Kettle : Game() {
 
     }
 
-    /**
-     * Schedules an asset for loading by [AssetManager.load](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html#load--)
-     *
-     * @param assetDescriptor [AssetDescriptor](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetDescriptor.html) of the desired asset
-     *
-     *
-     * @throws [GdxRuntimeException](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/utils/GdxRuntimeException.html) asset not loaded
-     * @throws [GdxRuntimeException](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/utils/GdxRuntimeException.html) no loader for type
-     * @throws [GdxRuntimeException](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/utils/GdxRuntimeException.html) couldn't load dependencies of asset
-     *
-     */
-    @Throws(GdxRuntimeException::class)
-    fun <Type> registerAsset(assetDescriptor: AssetDescriptor<Type>) {
+
+    override fun <Type> registerAsset(assetDescriptor: AssetDescriptor<Type>) {
         this.assetManager.load(assetDescriptor)
     }
 
-    /**
-     * Retrieves an asset from the [AssetManager](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html)
-     *
-     * @param assetDescriptor [AssetDescriptor](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetDescriptor.html) of the desired asset
-     *
-     * @return asset from [AssetManager](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html)
-     *
-     * @throws [GdxRuntimeException](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/utils/GdxRuntimeException.html) asset not loaded
-     */
-    @Throws(GdxRuntimeException::class)
-    fun <Type> getAsset(assetDescriptor: AssetDescriptor<Type>): Type {
+    override fun <Type> getAsset(assetDescriptor: AssetDescriptor<Type>): Type {
         return this.assetManager[assetDescriptor]
     }
 
-    /**
-     * Adds an entity to the [Entity Engine](http://libgdx.badlogicgames.com/ashley/docs/com/badlogic/ashley/core/PooledEngine.html)
-     *
-     * @param entity entity to add
-     *
-     * @throws IllegalArgumentException entity already added
-     * @throws RequiresComponentException entity has a component which requires a component entity does not have
-     */
-    @Throws(IllegalArgumentException::class)
-    fun addEntity(entity: Entity) {
+    override fun addEntity(entity: Entity) {
 
         // Thanks to waicool20 for helping with this
 
@@ -112,17 +82,17 @@ class Kettle : Game() {
         // Component is a component which has the @RequiredComponent annotation
         for (component in entity.components.filter{it::class.annotations.any{it::class == RequiresComponent::class}}) {
 
-            // Here we filter out annotations which aren't @RequiredComponent
-            // it is a @RequiredComponent annotation
-            component::class.annotations.filterIsInstance(RequiresComponent::class.java).forEach {
+            // Here we filter get the @RequiredComponent annotation
+            // it is a Component
+            (component::class.annotations.firstOrNull { it::class == RequiresComponent::class } as RequiresComponent).component.forEach {
 
                 // Here we loop through all the components and see if none of them are the component which the
                 // @RequiredComponent annotation is specifying a requirement for
-                if (entity.components.none {requiresComponent -> requiresComponent::class == it.component}) {
+                if (entity.components.none { requiresComponent -> requiresComponent::class == it }) {
 
                     // No component found which meeting the specification of @RequiredComponent, so we throw
                     // a RequiresComponentException
-                    throw RequiresComponentException(component::class, it.component)
+                    throw RequiresComponentException(component::class, it)
                 }
             }
         }

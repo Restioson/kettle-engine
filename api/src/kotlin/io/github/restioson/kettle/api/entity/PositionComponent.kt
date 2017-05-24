@@ -6,6 +6,8 @@ import com.badlogic.gdx.utils.Pool
 /**
  * Component for position
  */
+// TODO switch to box2d body
+@Deprecated("Switch to box2d body")
 class PositionComponent: Component, Pool.Poolable {
 
     var x: Float = 0f

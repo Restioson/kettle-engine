@@ -1,7 +1,5 @@
 package io.github.restioson.kettle.api
 
-import io.github.restioson.kettle.Kettle
-
 /**
  * Interface for Content Package main classes
  */

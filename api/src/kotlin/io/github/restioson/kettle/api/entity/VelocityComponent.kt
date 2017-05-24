@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.Pool
  * ## Requires
  *  - [PositionComponent]
  */
+// TODO switch to box2d body
+@Deprecated("Switch to box2d body")
 @RequiresComponent(PositionComponent::class)
 class VelocityComponent: Component, Pool.Poolable {
 
