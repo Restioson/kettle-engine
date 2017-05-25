@@ -55,10 +55,11 @@ project(":desktop") {
     }
 }
 
-project("api") {
+project(":core") {
     apply plugin: "java"
 
     dependencies {
+        compile project(":api")
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
@@ -76,11 +77,10 @@ project("api") {
     }
 }
 
-project(":core") {
+project("api") {
     apply plugin: "java"
 
     dependencies {
-        compile project(":api")
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
