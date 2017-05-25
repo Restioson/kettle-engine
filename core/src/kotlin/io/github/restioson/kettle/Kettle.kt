@@ -80,7 +80,7 @@ class Engine : Game(), Kettle {
 
         // We filter out any components which don't have the @RequiredComponent annotation
         // Component is a component which has the @RequiredComponent annotation
-        for (component in entity.components.filter{it::class.annotations.any{it::class == RequiresComponent::class}}) {
+        entity.components.filter { it::class.annotations.any { it::class == RequiresComponent::class } }.forEach { component ->
 
             // Here we filter get the @RequiredComponent annotation
             // it is a Component
