@@ -11,9 +11,3 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-
-before_deploy:
-  - gradle desktop:dist
-
-script:
-  - gradle dokka
