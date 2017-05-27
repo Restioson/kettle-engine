@@ -1,2 +1,2 @@
-include 'desktop', 'api', 'core'
+include 'desktop', 'api', 'core' , 'test-contentpackage'
 

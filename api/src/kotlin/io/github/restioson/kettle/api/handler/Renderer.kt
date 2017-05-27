@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.utils.Array
+import com.badlogic.gdx.utils.viewport.Viewport
 import io.github.restioson.kettle.api.entity.Box2DComponent
 import io.github.restioson.kettle.api.entity.GraphicsComponent
 
@@ -17,6 +18,7 @@ abstract class Renderer : IteratingSystem(Family.all(GraphicsComponent::class.ja
      * An instance of Camera which represents the camera used in drawing
      */
     abstract val camera: Camera
+    abstract val viewport: Viewport
 
     /**
      * A queue of entities to be rendered
@@ -35,6 +37,16 @@ abstract class Renderer : IteratingSystem(Family.all(GraphicsComponent::class.ja
     /**
      * Add entity to queue
      */
-    abstract override fun processEntity(entity: Entity, deltaTime: Float)
+    override fun processEntity(entity: Entity, deltaTime: Float) {
+        this.queuedEntities.add(entity)
+    }
+
+    /**
+     * Called on window resize
+     */
+    fun resize(x: Int, y: Int) {
+        this.viewport.update(x, y, true)
+        this.camera.update()
+    }
 
 }

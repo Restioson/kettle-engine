@@ -2,17 +2,28 @@ package io.github.restioson.kettle.api
 
 /**
  * Interface for Content Package main classes
+ * Resources should be scheduled to be loaded in the constructor
  */
 interface ContentPackage {
 
     /**
-     * Called on load of Content Package. Initialise everything here
+     * Instance of Kettle engine. Will be set by Kettle loader
+     */
+    var engine: Kettle
+
+    /**
+     * Schedule resources to be loaded by the assetmanager here
+     */
+    fun registerResources()
+
+    /**
+     * Initialise things here
      *
      * @param engine instance of Kettle object
      *
      *
      */
-    fun create(engine: Kettle)
+    fun create()
 
     /**
      * Called on dispose of application. Dispose of any assets with internal references
@@ -36,6 +47,7 @@ interface ContentPackage {
      *
      * @param delta time since last tick, ideally 50ms
      */
+    // TODO is this necessary? Entity systems could handle this...
     fun tick(delta: Double)
 
 }

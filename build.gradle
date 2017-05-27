@@ -97,6 +97,29 @@ project("api") {
     }
 }
 
+project("test-contentpackage") {
+    apply plugin: "java"
+
+    dependencies {
+        compile project(":core")
+        compile project(":api")
+        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        compile "com.badlogicgames.ashley:ashley:$ashleyVersion"
+        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        compile "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
+        compile "com.kotcrab.vis:vis-ui:1.3.0"
+        compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.0"
+        compile "com.github.czyzby:gdx-lml-vis:1.9.1.9.6"
+        compile "com.github.czyzby:gdx-lml:1.9.1.9.6"
+        compile "io.github.libktx:ktx-async:$ktxVersion"
+        compile "io.github.libktx:ktx-assets:$ktxVersion"
+    }
+}
+
 tasks.eclipse.doLast {
     delete ".project"
 }

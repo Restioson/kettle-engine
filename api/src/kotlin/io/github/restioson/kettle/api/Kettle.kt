@@ -2,8 +2,8 @@ package io.github.restioson.kettle.api
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.assets.AssetDescriptor
+import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.utils.GdxRuntimeException
-import io.github.restioson.kettle.api.entity.RequiresComponentException
 
 /**
  * Interface to describe engine API functions, implemented by [io.github.restioson.kettle.Kettle][Kettle]
@@ -42,9 +42,14 @@ interface Kettle {
      * @param entity entity to add
      *
      * @throws IllegalArgumentException entity already added
-     * @throws RequiresComponentException entity has a component which requires a component entity does not have
      */
-    @Throws(IllegalArgumentException::class, RequiresComponentException::class)
+    @Throws(IllegalArgumentException::class)
     fun addEntity(entity: Entity)
+
+    /**
+     * Gets the instance of the Box2D world in use
+     * @return box2d world
+     */
+    fun getWorld(): World
 
 }

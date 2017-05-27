@@ -7,16 +7,12 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.GL20
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.World
 import io.github.restioson.kettle.api.ContentPackage
 import io.github.restioson.kettle.api.Kettle
-import io.github.restioson.kettle.api.entity.Box2DComponent
-import io.github.restioson.kettle.api.entity.GraphicsComponent
-import io.github.restioson.kettle.api.handler.SpriteRenderer
+import io.github.restioson.kettle.api.handler.Renderer
 import io.github.restioson.kettle.api.physics.Units
 import org.reflections.Reflections
 
@@ -29,6 +25,7 @@ class Engine : Game(), Kettle {
     private lateinit var assetManager: AssetManager
     private lateinit var entityEngine: Engine // TODO pooledengine
     private lateinit var world: World // TODO let contentpackages set world
+    private lateinit var contentPackage: ContentPackage
     private var delta: Float = 0f
 
     // TODO remove
@@ -40,29 +37,13 @@ class Engine : Game(), Kettle {
         this.batch = SpriteBatch()
         this.assetManager = AssetManager()
         this.entityEngine = Engine()
-        this.world = World(Vector2(0f, -9.8f * Units.METERS_TO_PIXELS), true)
+        this.world = World(Vector2(0f, -9.8f * Units.PIXELS_TO_METERS), true)
 
-        // TODO remove
-        this.entityEngine.addSystem(SpriteRenderer(640f, 480f)) // TODO remove
-        this.registerAsset(AssetDescriptor("assets/test.png", Texture::class.java))
-
-        // TODO load content package
-        // this.contentPackage = this.loadContentPackage()
+        this.contentPackage = this.loadContentPackage()
+        this.contentPackage.engine = this
 
         this.assetManager.finishLoading()
-
-        // TODO remove down from here
-        val graphicsComponent = GraphicsComponent()
-        graphicsComponent.texture = this.getAsset(AssetDescriptor("assets/test.png", Texture::class.java))
-
-        val bodyDef = BodyDef()
-        bodyDef.type = BodyDef.BodyType.DynamicBody
-        bodyDef.position.set(Vector2(-320f, 240f))
-
-        entity = Entity()
-        entity.add(graphicsComponent).add(Box2DComponent(world.createBody(bodyDef), graphicsComponent.texture!!.width * 1f, graphicsComponent.texture!!.height * 1f, 1f))
-        this.addEntity(entity)
-        // TODO to here
+        this.contentPackage.create()
     }
 
     override fun render() {
@@ -87,6 +68,14 @@ class Engine : Game(), Kettle {
     override fun addEntity(entity: Entity) {
         this.entityEngine.addEntity(entity) // TODO pooled engine thing
     }
+
+    override fun resize(width: Int, height: Int) {
+        this.entityEngine.systems
+                .filter { it is Renderer }
+                .forEach { (it as Renderer).resize(width, height) }
+    }
+
+    override fun getWorld() = this.world
 
     override fun dispose() {
         this.batch.dispose()
