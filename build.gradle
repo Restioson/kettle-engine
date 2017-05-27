@@ -101,8 +101,9 @@ project("test-contentpackage") {
     apply plugin: "java"
 
     dependencies {
-        compile project(":core")
         compile project(":api")
+        compile project(":core")
+        compile project(":desktop")
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
