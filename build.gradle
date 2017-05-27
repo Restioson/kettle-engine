@@ -72,8 +72,7 @@ project(":core") {
         compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.0"
         compile "com.github.czyzby:gdx-lml-vis:1.9.1.9.6"
         compile "com.github.czyzby:gdx-lml:1.9.1.9.6"
-        compile "io.github.libktx:ktx-async:$ktxVersion"
-        compile "io.github.libktx:ktx-assets:$ktxVersion"
+        compile 'org.reflections:reflections:0.9.11'
     }
 }
 

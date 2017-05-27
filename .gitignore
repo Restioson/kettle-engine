@@ -62,3 +62,8 @@ gradle-app.setting
 ## OS Specific
 .DS_Store
 Thumbs.db
+
+## Project
+api/build/
+core/assets/
+gen/
