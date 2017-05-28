@@ -94,8 +94,4 @@ interface Level {
      */
     fun addEntityListener(family: Family, priority: Int, listener: EntityListener)
 
-    /**
-     * TODO: Remove. Level should have no rendering related code
-     */
-    fun resize(width: Int, height: Int)
 }

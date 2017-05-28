@@ -15,6 +15,7 @@ import org.reflections.Reflections
  * Main engine class, and [io.github.restioson.kettle.api.Kettle][Kettle] implementation
  */
 class Engine : Game(), Kettle {
+
     private lateinit var batch: SpriteBatch
 
     private lateinit var assetManager: AssetManager
@@ -25,7 +26,7 @@ class Engine : Game(), Kettle {
 
     private var delta: Float = 0f
 
-    override var screen: KettleScreen
+    override var kScreen: KettleScreen
         get() = super.getScreen() as KettleScreen
         set(value) = super.setScreen(value)
 
@@ -37,12 +38,12 @@ class Engine : Game(), Kettle {
 
         this.contentPackage = this.loadContentPackage()
         this.contentPackage.engine = this
+        this.contentPackage.registerResources()
 
         this.assetManager.finishLoading()
-        this.contentPackage.create()
-
         // TODO: Level should be initialized by CP
         this.level = SimpleLevel(this)
+        this.contentPackage.create()
     }
 
     override fun render() {
@@ -53,6 +54,7 @@ class Engine : Game(), Kettle {
 
         // TODO: Separate game ticks from render
         this.level.step(delta)
+        this.kScreen.render(delta)
     }
 
     override fun <T> registerAsset(assetDescriptor: AssetDescriptor<T>) {

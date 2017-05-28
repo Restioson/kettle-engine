@@ -6,12 +6,12 @@ import com.badlogic.ashley.utils.ImmutableArray
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.World
 import io.github.restioson.kettle.api.Kettle
-import io.github.restioson.kettle.api.entity.system.Renderer
 import io.github.restioson.kettle.api.level.Level
 import io.github.restioson.kettle.api.physics.Units
 import kotlin.reflect.KClass
 
 class SimpleLevel(override val engine: Kettle) : Level {
+
     private var entityEngine = Engine() // TODO pooledengine
 
     override var world = World(Vector2(0f, -9.8f * Units.PIXELS_TO_METERS), true) // TODO let contentpackages set world properties
@@ -49,12 +49,6 @@ class SimpleLevel(override val engine: Kettle) : Level {
 
     override fun addEntityListener(family: Family, priority: Int, listener: EntityListener) {
         this.entityEngine.addEntityListener(family, priority, listener)
-    }
-
-    override fun resize(width: Int, height: Int) {
-        this.entityEngine.systems
-                .filter { it is Renderer }
-                .forEach { (it as Renderer).resize(width, height) }
     }
 
     override fun step(delta: Float) {

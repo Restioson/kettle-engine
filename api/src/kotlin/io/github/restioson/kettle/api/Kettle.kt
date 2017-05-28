@@ -13,7 +13,7 @@ interface Kettle {
     /**
      * The current screen to be displayed by Kettle
      */
-    var screen: KettleScreen
+    var kScreen: KettleScreen
 
     /**
      * The level to simulate
