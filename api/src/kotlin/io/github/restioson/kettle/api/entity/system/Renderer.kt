@@ -11,6 +11,10 @@ abstract class Renderer : com.badlogic.ashley.systems.IteratingSystem(com.badlog
      * An instance of Camera which represents the camera used in drawing
      */
     abstract val camera: com.badlogic.gdx.graphics.Camera
+
+    /**
+     * Viewport to view the world with
+     */
     abstract val viewport: com.badlogic.gdx.utils.viewport.Viewport
 
     /**

@@ -15,9 +15,9 @@ import io.github.restioson.kettle.api.physics.Units
 /**
  * Renders entities with a spritebatch
  */
-class SpriteRenderer(w: Float, h: Float) : Renderer() {
+open class SpriteRenderer(w: Float, h: Float) : Renderer() {
 
-    override val camera: Camera = OrthographicCamera(w, h)
+    override final val camera: Camera = OrthographicCamera(w, h)
     override val viewport: Viewport = FitViewport(w, h, camera)
     override val queuedEntities: Array<Entity> = Array()
     val batch: SpriteBatch = SpriteBatch()
