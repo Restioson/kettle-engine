@@ -68,3 +68,5 @@ api/build/
 test-contentpackage/assets/
 gen/
 test-contentpackage/build/
+deploy_key
+deploy_key.pub
