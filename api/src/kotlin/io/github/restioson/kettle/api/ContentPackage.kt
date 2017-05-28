@@ -12,42 +12,18 @@ interface ContentPackage {
     var engine: Kettle
 
     /**
-     * Schedule resources to be loaded by the assetmanager here
+     * Logic for Client side stuff
      */
-    fun registerResources()
+    var clientSide: ClientSidePackage
 
     /**
-     * Initialise things here
-     *
-     * @param engine instance of Kettle object
-     *
-     *
+     * Logic for Server side stuff
+     */
+    var serverSide: ServerSidePackage
+
+    /**
+     * Called after [engine] is set, so create clientSide and serverSide here
      */
     fun create()
-
-    /**
-     * Called on dispose of application. Dispose of any assets with internal references
-     *
-     */
-    fun dispose()
-
-    /**
-     * Called on pause of application by libGDX, by Kettle, at the end of it's lifecycle, or before [dispose][io.github.restioson.kettle.Kettle.dispose] is called.
-     *
-    */
-    fun pause()
-
-    /**
-     * Called on resume of application by libGDX, or by Kettle.
-     */
-    fun resume()
-
-    /**
-     * Called once every tick. Update internal things
-     *
-     * @param delta time since last tick, ideally 50ms
-     */
-    // TODO is this necessary? Entity systems could handle this...
-    fun tick(delta: Double)
 
 }

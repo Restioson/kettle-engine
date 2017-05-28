@@ -7,8 +7,9 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import io.github.restioson.kettle.api.ContentPackage
 import io.github.restioson.kettle.api.Kettle
-import io.github.restioson.kettle.api.level.Level
+import io.github.restioson.kettle.api.Level
 import io.github.restioson.kettle.api.screen.KettleScreen
+import io.github.restioson.kettle.level.SimpleLevel
 import org.reflections.Reflections
 
 /**
@@ -38,12 +39,11 @@ class Engine : Game(), Kettle {
 
         this.contentPackage = this.loadContentPackage()
         this.contentPackage.engine = this
-        this.contentPackage.registerResources()
 
         this.assetManager.finishLoading()
         // TODO: Level should be initialized by CP
         this.level = SimpleLevel(this)
-        this.contentPackage.create()
+        this.contentPackage.clientSide.create()
     }
 
     override fun render() {

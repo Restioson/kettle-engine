@@ -1,4 +1,4 @@
-package io.github.restioson.kettle.api.level
+package io.github.restioson.kettle.api
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
@@ -6,7 +6,6 @@ import com.badlogic.ashley.core.EntitySystem
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.utils.ImmutableArray
 import com.badlogic.gdx.physics.box2d.World
-import io.github.restioson.kettle.api.Kettle
 import kotlin.reflect.KClass
 
 interface Level {

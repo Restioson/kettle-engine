@@ -24,6 +24,7 @@ open class SpriteRenderer(w: Float, h: Float) : Renderer() {
     val batch: SpriteBatch = SpriteBatch()
 
     override fun update(delta: Float) {
+
         super.update(delta)
 
         this.batch.projectionMatrix = camera.combined

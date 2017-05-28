@@ -1,12 +1,11 @@
-package io.github.restioson.kettle
+package io.github.restioson.kettle.level
 
 import com.badlogic.ashley.core.*
-import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.utils.ImmutableArray
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.World
 import io.github.restioson.kettle.api.Kettle
-import io.github.restioson.kettle.api.level.Level
+import io.github.restioson.kettle.api.Level
 import io.github.restioson.kettle.api.physics.Units
 import kotlin.reflect.KClass
 

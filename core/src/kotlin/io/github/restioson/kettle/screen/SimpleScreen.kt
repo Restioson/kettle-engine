@@ -4,10 +4,15 @@ import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.OrthographicCamera
 import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.screen.KettleScreen
+import io.github.restioson.kettle.entity.system.SpriteRenderer
 
 class SimpleScreen(override val engine: Kettle, w: Float, h: Float) : KettleScreen {
 
     override val guiCamera: Camera = OrthographicCamera(w, h)
+
+    init {
+        this.engine.level.addEntitySystem(SpriteRenderer(w, h))
+    }
 
     override fun render(delta: Float) {
     }

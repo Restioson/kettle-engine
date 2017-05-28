@@ -2,7 +2,6 @@ package io.github.restioson.kettle.api
 
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.utils.GdxRuntimeException
-import io.github.restioson.kettle.api.level.Level
 import io.github.restioson.kettle.api.screen.KettleScreen
 
 /**
