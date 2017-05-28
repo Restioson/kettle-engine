@@ -11,11 +11,3 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-
-script:
-  - bash ./deploy.sh
-
-env:
-  global:
-  - ENCRYPTION_LABEL: "2a4085cdbc3d"
-  - COMMIT_AUTHOR_EMAIL: "restiosondev@gmail.com"
