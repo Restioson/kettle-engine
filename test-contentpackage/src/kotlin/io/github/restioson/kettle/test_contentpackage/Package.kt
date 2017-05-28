@@ -10,28 +10,33 @@ import io.github.restioson.kettle.api.ContentPackage
 import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.entity.component.Box2DComponent
 import io.github.restioson.kettle.api.entity.component.GraphicsComponent
+import io.github.restioson.kettle.api.screen.KettleScreen
+import io.github.restioson.kettle.screen.WorldScreen
 
 class Package : ContentPackage {
 
     override lateinit var engine: Kettle
     val entity: Entity = Entity()
+    lateinit var screen: KettleScreen
 
     override fun registerResources() {
         println(Gdx.files.local("assets/test.png").file().absolutePath)
-        engine.registerAsset(AssetDescriptor(Gdx.files.local("assets/test.png"), Texture::class.java))
+        screen.registerAsset(AssetDescriptor(Gdx.files.local("assets/test.png"), Texture::class.java))
     }
 
     override fun create() {
         this.engine = engine
+        this.screen = WorldScreen.View2D(engine)
+        this.engine.screen = this.screen
 
         val graphicsComponent = GraphicsComponent()
-        graphicsComponent.texture = this.engine.getAsset(AssetDescriptor("assets/test.png", Texture::class.java))
+        graphicsComponent.texture = this.screen.getAsset(AssetDescriptor("assets/test.png", Texture::class.java))
 
         val bodyDef = BodyDef()
         bodyDef.type = BodyDef.BodyType.DynamicBody
         bodyDef.position.set(Vector2(0f, 0f))
 
-        entity.add(graphicsComponent).add(Box2DComponent(this.engine.getWorld().createBody(bodyDef), graphicsComponent.texture!!.width * 1f, graphicsComponent.texture!!.height * 1f, 1f))
+        entity.add(graphicsComponent).add(Box2DComponent(this.engine.world.createBody(bodyDef), graphicsComponent.texture!!.width * 1f, graphicsComponent.texture!!.height * 1f, 1f))
         this.engine.addEntity(entity)
     }
 
