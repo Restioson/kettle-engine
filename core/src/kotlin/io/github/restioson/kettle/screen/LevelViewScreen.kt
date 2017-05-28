@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.GL20
 import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.screen.KettleScreen
 
-abstract class WorldScreen(override val engine: Kettle) : KettleScreen {
-    class View2D(engine: Kettle) : WorldScreen(engine) {
+abstract class LevelScreen(override val engine: Kettle) : KettleScreen {
+    class View2D(engine: Kettle) : LevelScreen(engine) {
         override fun show() {
         }
 
@@ -33,7 +33,7 @@ abstract class WorldScreen(override val engine: Kettle) : KettleScreen {
         }
     }
 
-    class View3D(engine: Kettle) : WorldScreen(engine) {
+    class View3D(engine: Kettle) : LevelScreen(engine) {
         override fun show() {
         }
 
