@@ -5,9 +5,8 @@ import com.badlogic.ashley.core.EntityListener
 import com.badlogic.ashley.core.EntitySystem
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.utils.ImmutableArray
-import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.physics.box2d.World
-import com.badlogic.gdx.utils.GdxRuntimeException
+import io.github.restioson.kettle.api.screen.KettleScreen
 import kotlin.reflect.KClass
 
 /**
@@ -16,39 +15,19 @@ import kotlin.reflect.KClass
 interface Kettle {
 
     /**
-     * Schedules an asset for loading by [AssetManager.load](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html#load--)
-     *
-     * @param assetDescriptor [AssetDescriptor](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetDescriptor.html) of the desired asset
-     *
-     *
-     * @throws [GdxRuntimeException](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/utils/GdxRuntimeException.html) asset not loaded
-     * @throws [GdxRuntimeException](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/utils/GdxRuntimeException.html) no loader for type
-     * @throws [GdxRuntimeException](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/utils/GdxRuntimeException.html) couldn't load dependencies of asset
-     *
+     * Instance of the Box2D world
      */
-    @Throws(GdxRuntimeException::class)
-    fun <Type> registerAsset(assetDescriptor: AssetDescriptor<Type>)
+    var world: World
 
     /**
-     * Retrieves an asset from the [AssetManager](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html)
-     *
-     * @param assetDescriptor [AssetDescriptor](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetDescriptor.html) of the desired asset
-     *
-     * @return asset from [AssetManager](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetManager.html)
-     *
-     * @throws [GdxRuntimeException](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/utils/GdxRuntimeException.html) asset not loaded
+     * Array of entities from the [Entity Engine](http://libgdx.badlogicgames.com/ashley/docs/com/badlogic/ashley/core/PooledEngine.html)
      */
-    @Throws(GdxRuntimeException::class)
-    fun <Type> getAsset(assetDescriptor: AssetDescriptor<Type>): Type
+    val entities: ImmutableArray<Entity>
 
     /**
-     * Checks whether an asset is loaded
-     *
-     * @param assetDescriptor [AssetDescriptor](https://libgdx.badlogicgames.com/nightlies/docs/api/com/badlogic/gdx/assets/AssetDescriptor.html) of the desired asset]
-     *
-     * @return whether it is loaded
+     * The current screen to be displayed by Kettle
      */
-    fun <Type> isAssetLoaded(assetDescriptor: AssetDescriptor<Type>): Boolean
+    var screen: KettleScreen
 
     /**
      * Adds an entity to the [Entity Engine](http://libgdx.badlogicgames.com/ashley/docs/com/badlogic/ashley/core/PooledEngine.html)
@@ -59,13 +38,6 @@ interface Kettle {
      */
     @Throws(IllegalArgumentException::class)
     fun addEntity(entity: Entity)
-
-    /**
-     * Gets all the entities from the [Entity Engine](http://libgdx.badlogicgames.com/ashley/docs/com/badlogic/ashley/core/PooledEngine.html)
-     *
-     * @return entities from entity system
-     */
-    fun getEntities(): ImmutableArray<Entity>
 
     /**
      * Removes all entities from the [Entity Engine](http://libgdx.badlogicgames.com/ashley/docs/com/badlogic/ashley/core/PooledEngine.html)
@@ -85,13 +57,6 @@ interface Kettle {
      * @param type type of entity system
      */
     fun getEntitySystem(type: KClass<EntitySystem>): EntitySystem
-
-
-    /**
-     * Gets the instance of the Box2D world in use
-     * @return box2d world
-     */
-    fun getWorld(): World
 
     /**
      * Adds an entity listener to the [Entity Engine](http://libgdx.badlogicgames.com/ashley/docs/com/badlogic/ashley/core/PooledEngine.html)
