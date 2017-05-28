@@ -1,7 +1,8 @@
 package io.github.restioson.kettle
 
+import com.badlogic.ashley.core.*
 import com.badlogic.ashley.core.Engine
-import com.badlogic.ashley.core.Entity
+import com.badlogic.ashley.utils.ImmutableArray
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor
@@ -12,9 +13,10 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.World
 import io.github.restioson.kettle.api.ContentPackage
 import io.github.restioson.kettle.api.Kettle
-import io.github.restioson.kettle.api.handler.Renderer
+import io.github.restioson.kettle.api.entity.system.Renderer
 import io.github.restioson.kettle.api.physics.Units
 import org.reflections.Reflections
+import kotlin.reflect.KClass
 
 /**
  * Main engine class, and [io.github.restioson.kettle.api.Kettle][Kettle] implementation
@@ -24,12 +26,9 @@ class Engine : Game(), Kettle {
     private lateinit var batch: SpriteBatch
     private lateinit var assetManager: AssetManager
     private lateinit var entityEngine: Engine // TODO pooledengine
-    private lateinit var world: World // TODO let contentpackages set world
+    private lateinit var world: World // TODO let contentpackages set world properties
     private lateinit var contentPackage: ContentPackage
     private var delta: Float = 0f
-
-    // TODO remove
-    private lateinit var entity: Entity
 
     override fun create() {
 
@@ -65,8 +64,44 @@ class Engine : Game(), Kettle {
         return this.assetManager[assetDescriptor]
     }
 
+    override fun <Type> isAssetLoaded(assetDescriptor: AssetDescriptor<Type>): Boolean {
+        return this.assetManager.isLoaded(assetDescriptor.fileName, assetDescriptor.type)
+    }
+
     override fun addEntity(entity: Entity) {
         this.entityEngine.addEntity(entity) // TODO pooled engine thing
+    }
+
+    override fun getEntities(): ImmutableArray<Entity> {
+        return this.entityEngine.entities
+    }
+
+    override fun removeAllEntities() {
+        this.entityEngine.removeAllEntities()
+    }
+
+    override fun addEntitySystem(entitySystem: EntitySystem) {
+        this.entityEngine.addSystem(entitySystem)
+    }
+
+    override fun getEntitySystem(type: KClass<EntitySystem>): EntitySystem {
+        return this.entityEngine.getSystem(type.java)
+    }
+
+    override fun addEntityListener(listener: EntityListener) {
+        this.entityEngine.addEntityListener(listener)
+    }
+
+    override fun addEntityListener(family: Family, listener: EntityListener) {
+        this.entityEngine.addEntityListener(family, listener)
+    }
+
+    override fun addEntityListener(priority: Int, listener: EntityListener) {
+        this.entityEngine.addEntityListener(priority, listener)
+    }
+
+    override fun addEntityListener(family: Family, priority: Int, listener: EntityListener) {
+        this.entityEngine.addEntityListener(family, priority, listener)
     }
 
     override fun resize(width: Int, height: Int) {

@@ -1,17 +1,13 @@
-package io.github.restioson.kettle.api.entity
+package io.github.restioson.kettle.api.entity.component
 
-import com.badlogic.ashley.core.Component
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.utils.Disposable
-import com.badlogic.gdx.utils.Pool
 import ktx.assets.disposeSafely
 
 /**
  * Component for graphics
  */
-class GraphicsComponent : Component, Disposable, Pool.Poolable {
+class GraphicsComponent : com.badlogic.ashley.core.Component, com.badlogic.gdx.utils.Disposable, com.badlogic.gdx.utils.Pool.Poolable {
 
-    var texture: Texture? = null
+    var texture: com.badlogic.gdx.graphics.Texture? = null
 
     override fun reset() {
         this.texture = null

@@ -1,4 +1,4 @@
-package io.github.restioson.kettle.api.entity
+package io.github.restioson.kettle.api.entity.component
 
 import com.badlogic.ashley.core.Component
 import com.badlogic.gdx.utils.Pool

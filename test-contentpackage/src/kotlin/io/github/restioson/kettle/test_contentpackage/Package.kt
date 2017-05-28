@@ -1,14 +1,15 @@
 package io.github.restioson.kettle.test_contentpackage
 
 import com.badlogic.ashley.core.Entity
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
 import io.github.restioson.kettle.api.ContentPackage
 import io.github.restioson.kettle.api.Kettle
-import io.github.restioson.kettle.api.entity.Box2DComponent
-import io.github.restioson.kettle.api.entity.GraphicsComponent
+import io.github.restioson.kettle.api.entity.component.Box2DComponent
+import io.github.restioson.kettle.api.entity.component.GraphicsComponent
 
 class Package : ContentPackage {
 
@@ -16,7 +17,8 @@ class Package : ContentPackage {
     val entity: Entity = Entity()
 
     override fun registerResources() {
-        engine.registerAsset(AssetDescriptor("assets/test.png", Texture::class.java))
+        println(Gdx.files.local("assets/test.png").file().absolutePath)
+        engine.registerAsset(AssetDescriptor(Gdx.files.local("assets/test.png"), Texture::class.java))
     }
 
     override fun create() {

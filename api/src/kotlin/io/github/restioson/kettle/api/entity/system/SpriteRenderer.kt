@@ -1,4 +1,4 @@
-package io.github.restioson.kettle.api.handler
+package io.github.restioson.kettle.api.entity.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.Gdx
@@ -9,11 +9,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
-import io.github.restioson.kettle.api.entity.ComponentMappers
+import io.github.restioson.kettle.api.entity.component.ComponentMappers
 import io.github.restioson.kettle.api.physics.Units
 
 /**
- * Renders entities as sprites
+ * Renders entities with a spritebatch
  */
 class SpriteRenderer(w: Float, h: Float) : Renderer() {
 

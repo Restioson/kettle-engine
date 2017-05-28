@@ -1,4 +1,4 @@
-package io.github.restioson.kettle.api.entity
+package io.github.restioson.kettle.api.entity.component
 
 import com.badlogic.ashley.core.ComponentMapper
 
