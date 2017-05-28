@@ -5,6 +5,8 @@ import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.utils.ImmutableArray
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.assets.AssetDescriptor
+import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.World
@@ -21,6 +23,8 @@ import kotlin.reflect.KClass
  */
 class Engine : Game(), Kettle {
     private lateinit var batch: SpriteBatch
+
+    private lateinit var assetManager: AssetManager
 
     private lateinit var entityEngine: Engine // TODO pooledengine
     private lateinit var contentPackage: ContentPackage
@@ -40,12 +44,14 @@ class Engine : Game(), Kettle {
 
         // Initialise fields
         this.batch = SpriteBatch()
+        this.assetManager = AssetManager()
         this.entityEngine = Engine()
         this.world = World(Vector2(0f, -9.8f * Units.PIXELS_TO_METERS), true)
 
         this.contentPackage = this.loadContentPackage()
         this.contentPackage.engine = this
 
+        this.assetManager.finishLoading()
         this.contentPackage.create()
     }
 
@@ -100,8 +106,21 @@ class Engine : Game(), Kettle {
                 .forEach { (it as Renderer).resize(width, height) }
     }
 
+    override fun <T> registerAsset(assetDescriptor: AssetDescriptor<T>) {
+        this.assetManager.load(assetDescriptor)
+    }
+
+    override fun <T> getAsset(assetDescriptor: AssetDescriptor<T>): T {
+        return this.assetManager[assetDescriptor]
+    }
+
+    override fun <T> isAssetLoaded(assetDescriptor: AssetDescriptor<T>): Boolean {
+        return this.assetManager.isLoaded(assetDescriptor.fileName, assetDescriptor.type)
+    }
+
     override fun dispose() {
         this.batch.dispose()
+        this.assetManager.dispose()
     }
 
     private fun loadContentPackage(): ContentPackage {
