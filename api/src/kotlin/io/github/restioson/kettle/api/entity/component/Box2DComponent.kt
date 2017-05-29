@@ -1,35 +1,41 @@
 package io.github.restioson.kettle.api.entity.component
 
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.FixtureDef
+import com.badlogic.gdx.physics.box2d.PolygonShape
+
 /**
  * Component for box2d bodies to enable physics and position
+ *
+ * Currently only has constructors for boxes
  */
-class Box2DComponent : com.badlogic.ashley.core.Component, com.badlogic.gdx.utils.Pool.Poolable {
+
+// TODO add constructors for generic polygons
+class Box2DComponent() : com.badlogic.ashley.core.Component, com.badlogic.gdx.utils.Pool.Poolable {
 
     var body: com.badlogic.gdx.physics.box2d.Body? = null
-    var fixture: com.badlogic.gdx.physics.box2d.Fixture? = null
 
-    constructor(body: com.badlogic.gdx.physics.box2d.Body, fixture: com.badlogic.gdx.physics.box2d.Fixture) {
+    constructor(body: Body) : this() {
         this.body = body
-        this.fixture = fixture
     }
 
-    constructor(body: com.badlogic.gdx.physics.box2d.Body, fixtureDef: com.badlogic.gdx.physics.box2d.FixtureDef) {
+    constructor(body: Body, fixtureDef: FixtureDef) : this() {
         this.body = body
-        this.fixture = body.createFixture(fixtureDef)
+        body.createFixture(fixtureDef)
     }
 
-    constructor(body: com.badlogic.gdx.physics.box2d.Body, shape: com.badlogic.gdx.physics.box2d.PolygonShape, density: Float) {
+    constructor(body: Body, shape: PolygonShape, density: Float) : this() {
         this.body = body
-        this.fixture = body.createFixture(shape, density)
+        body.createFixture(shape, density)
     }
 
-    constructor(body: com.badlogic.gdx.physics.box2d.Body, width: Float, height: Float, density: Float) {
+    constructor(body: Body, width: Float, height: Float, density: Float) : this() {
         this.body = body
 
         val shape = com.badlogic.gdx.physics.box2d.PolygonShape()
         shape.setAsBox(width / 2, height / 2)
 
-        this.fixture = body.createFixture(shape, density)
+        body.createFixture(shape, density)
         shape.dispose()
     }
 

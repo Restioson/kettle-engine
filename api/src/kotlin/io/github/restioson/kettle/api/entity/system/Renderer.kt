@@ -1,11 +1,15 @@
 package io.github.restioson.kettle.api.entity.system
 
 import com.badlogic.ashley.core.Entity
+import com.badlogic.ashley.core.Family
+import com.badlogic.ashley.systems.IteratingSystem
+import io.github.restioson.kettle.api.entity.component.Box2DComponent
+import io.github.restioson.kettle.api.entity.component.GraphicsComponent
 
 /**
  * Renderer abstract class
  */
-abstract class Renderer : com.badlogic.ashley.systems.IteratingSystem(com.badlogic.ashley.core.Family.all(io.github.restioson.kettle.api.entity.component.GraphicsComponent::class.java, io.github.restioson.kettle.api.entity.component.Box2DComponent::class.java).get()) {
+abstract class Renderer : IteratingSystem(Family.all(GraphicsComponent::class.java, Box2DComponent::class.java).get()) {
 
     /**
      * An instance of Camera which represents the camera used in drawing
