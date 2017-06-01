@@ -11,4 +11,9 @@ Master: ![Master](https://travis-ci.org/Restioson/kettle-engine.svg?branch=maste
 This project aims to be a Kotlin game engine, with scripting in Kotlin to add content.
 
 ## WIP
-- Everything
+- Better Box2D
+- 3D
+- More implementations
+- More API
+- Server Multiplayer
+- Serialization/saving
