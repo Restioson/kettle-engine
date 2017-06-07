@@ -5,9 +5,33 @@ package io.github.restioson.kettle.api
  */
 interface ServerSidePackage {
 
+    var level: Level
+
+    /**
+     * Called after clientside and serverside is created
+     *
+     * Create entities here
+     */
+    fun create()
+
     /**
      * Advance one tick
      */
     fun step(delta: Float)
+
+    /**
+     * Called on game pause
+     */
+    fun pause()
+
+    /**
+     * Called on game unpause
+     */
+    fun unpause()
+
+    /**
+     * Called at exit of game
+     */
+    fun dispose()
 
 }

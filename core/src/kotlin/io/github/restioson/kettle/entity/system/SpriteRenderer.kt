@@ -9,9 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
-import io.github.restioson.kettle.api.entity.component.ComponentMappers
-import io.github.restioson.kettle.api.entity.system.Renderer
 import io.github.restioson.kettle.api.physics.Units
+import io.github.restioson.kettle.entity.ComponentMappers
 
 /**
  * Renders entities with a spritebatch
@@ -35,10 +34,9 @@ open class SpriteRenderer(w: Float, h: Float) : Renderer() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         for (entity in this.queuedEntities) {
-            val pos = ComponentMappers.BOX2D_MAPPER[entity].body!!.position
-            this.batch.draw(ComponentMappers.GRAPHICS_MAPPER[entity].texture!!,
-                    pos.x * Units.PIXELS_TO_METERS,
-                    pos.y * Units.PIXELS_TO_METERS
+            this.batch.draw(ComponentMappers.GRAPHICS[entity].texture!!, // TODO TextureRegion
+                    ComponentMappers.BOX2D[entity].body!!.position.x * Units.PIXELS_TO_METERS,
+                    ComponentMappers.BOX2D[entity].body!!.position.y * Units.PIXELS_TO_METERS
             )
         }
 

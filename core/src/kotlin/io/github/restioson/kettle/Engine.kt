@@ -1,30 +1,23 @@
 package io.github.restioson.kettle
 
+import com.badlogic.ashley.core.Family
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetManager
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import io.github.restioson.kettle.api.ContentPackage
 import io.github.restioson.kettle.api.Kettle
-import io.github.restioson.kettle.api.Level
 import io.github.restioson.kettle.api.screen.KettleScreen
-import io.github.restioson.kettle.level.SimpleLevel
+import io.github.restioson.kettle.entity.component.AssetLocationComponent
+import io.github.restioson.kettle.entity.listener.AssetLocationComponentListener
 import org.reflections.Reflections
 
 /**
- * Main engine class, and [io.github.restioson.kettle.api.Kettle][Kettle] implementation
+ * Main engine class, and [Kettle] implementation
  */
 class Engine : Game(), Kettle {
 
-    private lateinit var batch: SpriteBatch
-
-    private lateinit var assetManager: AssetManager
-
+    override lateinit var assetManager: AssetManager
     private lateinit var contentPackage: ContentPackage
-
-    override lateinit var level: Level
-
     private var delta: Float = 0f
 
     override var kScreen: KettleScreen
@@ -34,16 +27,20 @@ class Engine : Game(), Kettle {
     override fun create() {
 
         // Initialise fields
-        this.batch = SpriteBatch()
         this.assetManager = AssetManager()
 
-        this.contentPackage = this.loadContentPackage()
-        this.contentPackage.engine = this
+        this.contentPackage = this.findContentPackage()
+        this.initContentPackage(this.contentPackage)
 
+        this.contentPackage.create() // TODO seperate client from server
         this.assetManager.finishLoading()
-        // TODO: Level should be initialized by CP
-        this.level = SimpleLevel(this)
+
+        // TODO see AssetLocationComponentListener todo
+        this.contentPackage.clientSide.level.entityEngine.addEntityListener(Family.all(AssetLocationComponent::class.java).get(), AssetLocationComponentListener(this))
+
+        this.contentPackage.serverSide.create()
         this.contentPackage.clientSide.create()
+
     }
 
     override fun render() {
@@ -53,29 +50,28 @@ class Engine : Game(), Kettle {
         super.render()
 
         // TODO: Separate game ticks from render
-        this.level.step(delta)
-        this.kScreen.render(delta)
-    }
-
-    override fun <T> registerAsset(assetDescriptor: AssetDescriptor<T>) {
-        this.assetManager.load(assetDescriptor)
-    }
-
-    override fun <T> getAsset(assetDescriptor: AssetDescriptor<T>): T {
-        return this.assetManager[assetDescriptor]
-    }
-
-    override fun <T> isAssetLoaded(assetDescriptor: AssetDescriptor<T>): Boolean {
-        return this.assetManager.isLoaded(assetDescriptor.fileName, assetDescriptor.type)
+        this.contentPackage.serverSide.step(delta)
     }
 
     override fun dispose() {
-        this.batch.dispose()
+        this.contentPackage.clientSide.dispose()
+        this.contentPackage.serverSide.dispose()
         this.assetManager.dispose()
     }
 
-    private fun loadContentPackage(): ContentPackage {
+    override fun pause() {
+        super.pause()
+    }
+
+    private fun findContentPackage(): ContentPackage {
         val reflections = Reflections("")
         return reflections.getSubTypesOf(ContentPackage::class.java).first { true }.newInstance()
     }
+
+    private fun initContentPackage(pack: ContentPackage) {
+        pack.engine = this
+        this.assetManager.finishLoading()
+
+    }
+
 }

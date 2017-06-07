@@ -10,9 +10,15 @@ import io.github.restioson.kettle.api.screen.KettleScreen
 interface ClientSidePackage {
 
     /**
-     * Get current screen
+     * Current screen
      */
     val screen: KettleScreen
+
+    /**
+     * Current level
+     */
+    // TODO ClientLevel interface?
+    val level: Level
 
     /**
      * Called after assets are loaded, so initialise things requiring assets here

@@ -2,12 +2,13 @@ package io.github.restioson.kettle
 
 import io.github.restioson.kettle.api.ClientSidePackage
 import io.github.restioson.kettle.api.Kettle
+import io.github.restioson.kettle.api.Level
 import io.github.restioson.kettle.screen.SimpleScreen
 
 /**
  * Base implementation of ClientSidePackage
  */
-open class ClientSide(val engine: Kettle, val width: Float, val height: Float) : ClientSidePackage {
+open class ClientSide(val engine: Kettle, override val level: Level, val width: Float, val height: Float) : ClientSidePackage {
 
     /**
      * The GameScreen which is currently in use
@@ -33,7 +34,8 @@ open class ClientSide(val engine: Kettle, val width: Float, val height: Float) :
      * For instance, GUI would be initialised here
      */
     override fun create() {
-        this.screen = SimpleScreen(this.engine, this.width, this.height)
+        this.screen = SimpleScreen(this.engine, this.level, this.width, this.height)
+        this.engine.kScreen = this.screen
     }
 
     /**
