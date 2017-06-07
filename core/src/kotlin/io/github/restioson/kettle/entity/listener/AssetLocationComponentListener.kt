@@ -31,9 +31,7 @@ class AssetLocationComponentListener(val engine: Kettle) : EntityListener {
             when (descriptor?.type?.kotlin) {
 
                 Texture::class ->
-
                     entity.add(GraphicsComponent(engine.assetManager[descriptor] as Texture))
-
 
                 Sound::class ->
                     entity.add(SoundComponent(engine.assetManager[descriptor] as Sound))
