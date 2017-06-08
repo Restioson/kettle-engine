@@ -17,7 +17,7 @@ import io.github.restioson.kettle.entity.component.*
  */
 
 // TODO probably doesn't work for second and above entities
-// TODO make listener interface for when a component is added
+// TODO make listener interface for when a component is added - ComponentListener - listen for component related packets and trigger
 class AssetLocationComponentListener(val engine: Kettle) : EntityListener {
 
     override fun entityAdded(entity: Entity?) {
@@ -47,7 +47,6 @@ class AssetLocationComponentListener(val engine: Kettle) : EntityListener {
 
                 ParticleEffect::class ->
                     entity.add(ParticleEffectComponent(engine.assetManager[descriptor] as ParticleEffect))
-
 
             }
 
