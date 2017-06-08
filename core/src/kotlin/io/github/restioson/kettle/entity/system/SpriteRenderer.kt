@@ -35,8 +35,8 @@ open class SpriteRenderer(w: Float, h: Float) : Renderer() {
 
         for (entity in this.queuedEntities) {
             this.batch.draw(ComponentMappers.GRAPHICS[entity].texture!!, // TODO TextureRegion
-                    ComponentMappers.BOX2D[entity].body!!.position.x * Units.PIXELS_TO_METERS,
-                    ComponentMappers.BOX2D[entity].body!!.position.y * Units.PIXELS_TO_METERS
+                    ComponentMappers.BODY[entity].body!!.position.x * Units.PIXELS_TO_METERS,
+                    ComponentMappers.BODY[entity].body!!.position.y * Units.PIXELS_TO_METERS
             )
         }
 

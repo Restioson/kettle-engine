@@ -10,7 +10,7 @@ object ComponentMappers {
 
     val ASSET_LOCATION: ComponentMapper<AssetLocationComponent> = ComponentMapper.getFor(AssetLocationComponent::class.java)
     val GRAPHICS: ComponentMapper<GraphicsComponent> = ComponentMapper.getFor(GraphicsComponent::class.java)
-    val BOX2D: ComponentMapper<Box2DComponent> = ComponentMapper.getFor(Box2DComponent::class.java)
+    val BODY: ComponentMapper<BodyComponent> = ComponentMapper.getFor(BodyComponent::class.java)
     val HEALTH: ComponentMapper<HealthComponent> = ComponentMapper.getFor(HealthComponent::class.java)
     val SOUND: ComponentMapper<SoundComponent> = ComponentMapper.getFor(SoundComponent::class.java)
     val MUSIC: ComponentMapper<MusicComponent> = ComponentMapper.getFor(MusicComponent::class.java)

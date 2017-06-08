@@ -6,19 +6,18 @@ import com.badlogic.gdx.utils.Array
 import io.github.restioson.kettle.api.physics.Units
 
 /**
- * Builder for [Box2DComponent]s
+ * Builder for [BodyComponent]s
  *
  * Allows serialization of the component, due to storing definitions (e.g BodyDefs)
  */
-class Box2DComponentBuilder(jointDefSize: Int = 2, fixtureDefSize: Int = 1) {
+class BodyComponentBuilder(jointDefSize: Int = 2, fixtureDefSize: Int = 1) {
 
-    // TODO slim down this stuff
     var bodyDef: BodyDef? = null
-    val joints = Array<JointDef>(false, jointDefSize) // TODO probably not needed -- Joint has enough data to reconstruct def
-    val fixtures = Array<FixtureDef>(false, fixtureDefSize)
+    private val joints = Array<JointDef>(false, jointDefSize)
+    private val fixtures = Array<FixtureDef>(false, fixtureDefSize)
     private val shapesToDispose = Array<Shape>(false, fixtureDefSize)
 
-    fun withBody(definition: BodyDef): Box2DComponentBuilder {
+    fun withBody(definition: BodyDef): BodyComponentBuilder {
         this.bodyDef = definition
         return this
     }
@@ -28,7 +27,7 @@ class Box2DComponentBuilder(jointDefSize: Int = 2, fixtureDefSize: Int = 1) {
             type: BodyDef.BodyType,
             position: Vector2 = Vector2(0f, 0f),
             angle: Float = 0f
-    ): Box2DComponentBuilder {
+    ): BodyComponentBuilder {
 
         this.bodyDef = BodyDef()
 
@@ -40,28 +39,28 @@ class Box2DComponentBuilder(jointDefSize: Int = 2, fixtureDefSize: Int = 1) {
 
     }
 
-    fun withJoint(definition: JointDef): Box2DComponentBuilder {
+    fun withJoint(definition: JointDef): BodyComponentBuilder {
         this.joints.add(definition)
         return this
     }
 
-    fun withJoints(definitions: Array<JointDef>): Box2DComponentBuilder {
+    fun withJoints(definitions: Array<JointDef>): BodyComponentBuilder {
         this.joints.addAll(definitions)
         return this
     }
 
-    fun withJoints(vararg definitions: JointDef): Box2DComponentBuilder {
+    fun withJoints(vararg definitions: JointDef): BodyComponentBuilder {
         this.joints.addAll(*definitions)
         return this
     }
 
-    fun withFixture(fixture: FixtureDef): Box2DComponentBuilder {
+    fun withFixture(fixture: FixtureDef): BodyComponentBuilder {
         this.fixtures.add(fixture)
 
         return this
     }
 
-    fun withBoxFixture(width: Float, height: Float, isPixels: Boolean = false, density: Float = 1f): Box2DComponentBuilder {
+    fun withBoxFixture(width: Float, height: Float, isPixels: Boolean = false, density: Float = 1f): BodyComponentBuilder {
 
         val shape = PolygonShape()
 
@@ -77,7 +76,7 @@ class Box2DComponentBuilder(jointDefSize: Int = 2, fixtureDefSize: Int = 1) {
         return this
     }
 
-    fun withFixture(density: Float = 1f, vararg points: Float): Box2DComponentBuilder {
+    fun withFixture(density: Float = 1f, vararg points: Float): BodyComponentBuilder {
 
         val shape = PolygonShape()
         shape.set(points)
@@ -88,7 +87,7 @@ class Box2DComponentBuilder(jointDefSize: Int = 2, fixtureDefSize: Int = 1) {
         return this
     }
 
-    fun withFixture(shape: Shape, density: Float = 1f): Box2DComponentBuilder {
+    fun withFixture(shape: Shape, density: Float = 1f): BodyComponentBuilder {
 
         val fixture = FixtureDef()
         fixture.shape = shape
@@ -98,20 +97,20 @@ class Box2DComponentBuilder(jointDefSize: Int = 2, fixtureDefSize: Int = 1) {
         return this
     }
 
-    fun withFixtures(fixtures: Array<FixtureDef>): Box2DComponentBuilder {
+    fun withFixtures(fixtures: Array<FixtureDef>): BodyComponentBuilder {
         this.fixtures.addAll(fixtures)
         return this
     }
 
-    fun withFixtures(vararg fixtures: FixtureDef): Box2DComponentBuilder {
+    fun withFixtures(vararg fixtures: FixtureDef): BodyComponentBuilder {
         this.fixtures.addAll(*fixtures)
         return this
     }
 
 
-    fun build(world: World): Box2DComponent {
+    fun build(world: World): BodyComponent {
 
-        val component = Box2DComponent(this.joints.size, this.fixtures.size)
+        val component = BodyComponent(this.joints.size)
 
         component.bodyDef = this.bodyDef ?: throw IllegalArgumentException("Builder requires BodyDefinition!")
         component.body = world.createBody(this.bodyDef)
@@ -121,8 +120,6 @@ class Box2DComponentBuilder(jointDefSize: Int = 2, fixtureDefSize: Int = 1) {
             for (joint in this.joints) {
                 world.createJoint(joint)
             }
-
-            component.jointDefs.addAll(this.joints)
 
         }
 

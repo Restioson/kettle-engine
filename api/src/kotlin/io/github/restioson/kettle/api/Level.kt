@@ -1,6 +1,6 @@
 package io.github.restioson.kettle.api
 
-import com.badlogic.ashley.core.Engine
+import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.physics.box2d.World
 
 interface Level {
@@ -17,8 +17,10 @@ interface Level {
 
     /**
      * Ashley entity engine
+     *
+     * All components must implement Pool.Poolable
      */
-    val entityEngine: Engine
+    val entityEngine: PooledEngine
 
     /**
      * Steps this level by a single tick

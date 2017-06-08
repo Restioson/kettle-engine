@@ -1,8 +1,10 @@
-package io.github.restioson.kettle.api.serialization
+package io.github.restioson.kettle.serialization
 
+import io.github.restioson.kettle.api.serialization.KettleBuffer
 import java.nio.ByteBuffer
 
-class KettleByteBuffer {
+class KettleByteBuffer : KettleBuffer {
+
     private val buffer: ByteBuffer
 
     val writtenBytes: ByteArray
@@ -16,7 +18,7 @@ class KettleByteBuffer {
         this.buffer = ByteBuffer.allocate(capacity)
     }
 
-    fun writeUInt8(value: Int) {
+    override fun writeUInt8(value: Int) {
         if (value in 0..0xFF) {
             this.buffer.put(value.toByte())
         } else {
@@ -24,7 +26,7 @@ class KettleByteBuffer {
         }
     }
 
-    fun writeUInt16(value: Int) {
+    override fun writeUInt16(value: Int) {
         if (value in 0..0xFFFF) {
             this.buffer.putShort((value and 0xFFFF).toShort())
         } else {
@@ -32,7 +34,7 @@ class KettleByteBuffer {
         }
     }
 
-    fun writeUInt32(value: Long) {
+    override fun writeUInt32(value: Long) {
         if (value in 0..0xFFFFFFFF) {
             this.buffer.putInt((value and 0xFFFFFFFF).toInt())
         } else {
@@ -40,50 +42,56 @@ class KettleByteBuffer {
         }
     }
 
-    fun writeInt8(value: Byte) {
+    override fun writeInt8(value: Byte) {
         this.buffer.put(value)
     }
 
-    fun writeInt16(value: Short) {
+    override fun writeInt16(value: Short) {
         this.buffer.putShort(value)
     }
 
-    fun writeInt32(value: Int) {
+    override fun writeInt32(value: Int) {
         this.buffer.putInt(value)
     }
 
-    fun writeInt64(value: Long) {
+    override fun writeInt64(value: Long) {
         this.buffer.putLong(value)
     }
 
-    fun writeFloat32(value: Float) {
+    override fun writeFloat32(value: Float) {
         this.buffer.putFloat(value)
     }
 
-    fun writeFloat64(value: Double) {
+    override fun writeFloat64(value: Double) {
         this.buffer.putDouble(value)
     }
 
-    fun writeStringASCII(value: String) {
+    override fun writeStringASCII(value: String) {
         for (char in value) {
             this.writeUInt8(char.toInt())
         }
         this.writeUInt8(0)
     }
 
-    fun readUInt8() = this.buffer.get().toInt() and 0xFF
+    override fun readUInt8() = this.buffer.get().toInt() and 0xFF
 
-    fun readUInt16() = this.buffer.short.toInt() and 0xFFFF
+    override fun readUInt16() = this.buffer.short.toInt() and 0xFFFF
 
-    fun readUInt32() = this.buffer.int.toLong() and 0xFFFFFFFF
+    override fun readUInt32() = this.buffer.int.toLong() and 0xFFFFFFFF
 
-    fun readInt8() = this.buffer.get()
+    override fun readInt8() = this.buffer.get()
 
-    fun readInt16() = this.buffer.short
+    override fun readInt16() = this.buffer.short
 
-    fun readInt32() = this.buffer.int
+    override fun readInt32() = this.buffer.int
 
-    fun readStringASCII(): String {
+    override fun readInt64() = this.buffer.long
+
+    override fun readFloat32() = this.buffer.float
+
+    override fun readFloat64() = this.buffer.double
+
+    override fun readStringASCII(): String {
         val builder = StringBuilder()
         var char = -1
         while (char != 0) {

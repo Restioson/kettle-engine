@@ -9,7 +9,7 @@ import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.Level
 import io.github.restioson.kettle.api.physics.Units
 import io.github.restioson.kettle.entity.component.AssetLocationComponent
-import io.github.restioson.kettle.entity.component.Box2DComponentBuilder
+import io.github.restioson.kettle.entity.component.BodyComponentBuilder
 import io.github.restioson.kettle.level.SimpleLevel
 
 class SimpleServerSide(engine: Kettle) : ServerSide(engine) {
@@ -26,7 +26,7 @@ class SimpleServerSide(engine: Kettle) : ServerSide(engine) {
         // Create entity
         val entity = Entity()
                 .add(AssetLocationComponent(AssetDescriptor<Texture>("assets/chicken.png", Texture::class.java)))
-                .add(Box2DComponentBuilder()
+                .add(BodyComponentBuilder()
                         .withBody(BodyDef.BodyType.DynamicBody)
                         .withBoxFixture(256f, 256f, true)
                         .build(this.level.world)

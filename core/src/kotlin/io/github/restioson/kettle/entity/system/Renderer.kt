@@ -6,13 +6,13 @@ import com.badlogic.ashley.systems.IteratingSystem
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.viewport.Viewport
-import io.github.restioson.kettle.entity.component.Box2DComponent
+import io.github.restioson.kettle.entity.component.BodyComponent
 import io.github.restioson.kettle.entity.component.GraphicsComponent
 
 /**
  * Renderer abstract class
  */
-abstract class Renderer : IteratingSystem(Family.all(GraphicsComponent::class.java, Box2DComponent::class.java).get()) {
+abstract class Renderer : IteratingSystem(Family.all(GraphicsComponent::class.java, BodyComponent::class.java).get()) {
 
     /**
      * An instance of Camera which represents the camera used in drawing
