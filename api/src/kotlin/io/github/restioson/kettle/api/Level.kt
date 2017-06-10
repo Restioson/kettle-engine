@@ -23,10 +23,25 @@ interface Level {
     val entityEngine: PooledEngine
 
     /**
+     * Whether game is paused
+     */
+    var paused: Boolean
+
+    /**
      * Steps this level by a single tick
      *
      * @param delta the delta time
      */
     fun step(delta: Float)
+
+    /**
+     * Called to pause sim
+     */
+    fun pause()
+
+    /**
+     * Called to unpause sim
+     */
+    fun resume()
 
 }

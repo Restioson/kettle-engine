@@ -1,28 +1,28 @@
 package io.github.restioson.kettle
 
-import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.Level
 import io.github.restioson.kettle.api.ServerSidePackage
-import io.github.restioson.kettle.level.SimpleLevel
 
 /**
  * Base implementation of ServerSidePackage
  */
+abstract class BaseServerSide : ServerSidePackage {
 
-open class ServerSide(engine: Kettle) : ServerSidePackage {
-
-    override var level: Level = SimpleLevel(engine)
+    abstract override var level: Level
 
     override fun create() {
     }
 
     override fun step(delta: Float) {
+        this.level.step(delta)
     }
 
     override fun pause() {
+        this.level.pause()
     }
 
-    override fun unpause() {
+    override fun resume() {
+        this.level.resume()
     }
 
     override fun dispose() {

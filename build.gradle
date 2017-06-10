@@ -73,6 +73,8 @@ project(":core") {
         compile "com.github.czyzby:gdx-lml-vis:1.9.1.9.6"
         compile "com.github.czyzby:gdx-lml:1.9.1.9.6"
         compile 'org.reflections:reflections:0.9.11'
+        compile 'io.github.microutils:kotlin-logging:1.4.4'
+        compile 'ch.qos.logback:logback-classic:1.2.3'
     }
 }
 
@@ -92,8 +94,6 @@ project("api") {
         compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.0"
         compile "com.github.czyzby:gdx-lml-vis:1.9.1.9.6"
         compile "com.github.czyzby:gdx-lml:1.9.1.9.6"
-        compile "io.github.libktx:ktx-async:$ktxVersion"
-        compile "io.github.libktx:ktx-assets:$ktxVersion"
     }
 }
 
@@ -116,8 +116,6 @@ project("test-contentpackage") {
         compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:1.2.0"
         compile "com.github.czyzby:gdx-lml-vis:1.9.1.9.6"
         compile "com.github.czyzby:gdx-lml:1.9.1.9.6"
-        compile "io.github.libktx:ktx-async:$ktxVersion"
-        compile "io.github.libktx:ktx-assets:$ktxVersion"
     }
 }
 

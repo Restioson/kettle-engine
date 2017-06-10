@@ -1,5 +1,6 @@
 package io.github.restioson.kettle.entity.component
 
+import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.utils.Array
@@ -108,9 +109,9 @@ class BodyComponentBuilder(jointDefSize: Int = 2, fixtureDefSize: Int = 1) {
     }
 
 
-    fun build(world: World): BodyComponent {
+    fun build(engine: PooledEngine, world: World): BodyComponent {
 
-        val component = BodyComponent(this.joints.size)
+        val component = engine.createComponent(BodyComponent::class.java)
 
         component.bodyDef = this.bodyDef ?: throw IllegalArgumentException("Builder requires BodyDefinition!")
         component.body = world.createBody(this.bodyDef)

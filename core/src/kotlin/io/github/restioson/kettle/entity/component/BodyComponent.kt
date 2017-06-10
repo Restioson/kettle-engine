@@ -1,9 +1,11 @@
 package io.github.restioson.kettle.entity.component
 
-import com.badlogic.ashley.core.Component
 import com.badlogic.gdx.physics.box2d.*
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.Pool
+import io.github.restioson.kettle.api.serialization.KettleBuffer
+import io.github.restioson.kettle.api.serialization.KettleSerializable
+import io.github.restioson.kettle.api.serialization.SerializableComponent
 
 /**
  * Component for box2d bodies to enable physics and position
@@ -12,11 +14,14 @@ import com.badlogic.gdx.utils.Pool
  */
 
 // TODO serialise?
-class BodyComponent(fixtureDefSize: Int) : Component, Pool.Poolable {
+class BodyComponent : SerializableComponent, Pool.Poolable {
 
-    lateinit var bodyDef: BodyDef
+    override var sync = true
+    override var save = true
+
+    var bodyDef: BodyDef? = null
     var body: Body? = null
-    val fixtureDefs = Array<FixtureDef>(false, fixtureDefSize)
+    val fixtureDefs = Array<FixtureDef>(false, 1)
 
     fun createFixture(fixtureDef: FixtureDef) {
         this.body?.createFixture(fixtureDef)
@@ -35,6 +40,16 @@ class BodyComponent(fixtureDefSize: Int) : Component, Pool.Poolable {
         val shape = PolygonShape()
         shape.setAsBox(width, height)
         this.createFixture(shape, density)
+    }
+
+    override fun serialize(buffer: KettleBuffer, extraList: ArrayList<KettleSerializable>) {
+
+        // Make sure that bodyDef and body are filled
+
+
+    }
+
+    override fun deserialize(buffer: KettleBuffer) {
     }
 
     override fun reset() {

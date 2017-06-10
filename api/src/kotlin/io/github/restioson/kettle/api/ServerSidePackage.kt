@@ -27,7 +27,7 @@ interface ServerSidePackage {
     /**
      * Called on game unpause
      */
-    fun unpause()
+    fun resume()
 
     /**
      * Called at exit of game

@@ -1,5 +1,7 @@
 package io.github.restioson.kettle
 
+import ch.qos.logback.classic.Level
+import ch.qos.logback.classic.Logger
 import com.badlogic.ashley.core.Family
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
@@ -9,7 +11,9 @@ import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.screen.KettleScreen
 import io.github.restioson.kettle.entity.component.AssetLocationComponent
 import io.github.restioson.kettle.entity.listener.AssetLocationComponentListener
+import mu.KLogging
 import org.reflections.Reflections
+import org.slf4j.LoggerFactory
 
 /**
  * Main engine class, and [Kettle] implementation
@@ -20,19 +24,22 @@ class Engine : Game(), Kettle {
     private lateinit var contentPackage: ContentPackage
     private var delta: Float = 0f
 
+    companion object : KLogging()
+
     override var kScreen: KettleScreen
         get() = super.getScreen() as KettleScreen
         set(value) = super.setScreen(value)
 
     override fun create() {
 
+        logger.info("Starting Kettle...")
         // Initialise fields
         this.assetManager = AssetManager()
 
         this.contentPackage = this.findContentPackage()
         this.initContentPackage(this.contentPackage)
 
-        this.contentPackage.create() // TODO seperate client from server
+        this.contentPackage.create() // TODO separate client from server
         this.assetManager.finishLoading()
 
         // TODO see AssetLocationComponentListener todo
@@ -61,9 +68,18 @@ class Engine : Game(), Kettle {
 
     override fun pause() {
         super.pause()
+        this.contentPackage.clientSide.pause()
+        this.contentPackage.serverSide.pause()
+    }
+
+    override fun resume() {
+        super.resume()
+        this.contentPackage.clientSide.resume()
+        this.contentPackage.serverSide.resume()
     }
 
     private fun findContentPackage(): ContentPackage {
+        (LoggerFactory.getLogger("org.reflections.Reflections") as Logger).level = Level.ERROR
         val reflections = Reflections("")
         return reflections.getSubTypesOf(ContentPackage::class.java).first { true }.newInstance()
     }
