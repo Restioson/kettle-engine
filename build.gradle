@@ -132,14 +132,14 @@ subprojects {
         from sourceSets.main.allSource
     }
 
-    task dokkaJar(type: Jar, dependsOn: classes) {
-        classifier = 'dokka'
+    task javadocJar(type: Jar, dependsOn: classes) {
+        classifier = 'javadoc'
         from "$buildDir/dokka"
     }
 
     artifacts {
         archives sourcesJar
-        archives dokkaJar
+        archives javadocJar
     }
 
 }
