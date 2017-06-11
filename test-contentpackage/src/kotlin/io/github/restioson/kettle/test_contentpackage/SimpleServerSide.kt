@@ -39,8 +39,8 @@ class SimpleServerSide(engine: Kettle) : Box2DServerSide(engine) {
                                     .withBody(BodyDef.BodyType.DynamicBody)
                                     .withBoxFixture(256f, 256f, true)
                                     .build(this, this@SimpleServerSide.level.world).apply {
-                                this.body!!.applyLinearImpulse(10f * body!!.mass, 0f, 0f, 0f, true)
-                            }
+                                        this.body!!.applyLinearImpulse(10f * body!!.mass, 0f, 0f, 0f, true)
+                                    }
                             )
             )
         }
