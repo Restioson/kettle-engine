@@ -126,6 +126,21 @@ tasks.eclipse.doLast {
     delete ".project"
 }
 
+tasks.sourcesJar {
+    classifier = 'sources'
+    from sourceSets.main.java
+}
+
+tasks.dokkaJar {
+    classifier = 'dokka'
+    from "$buildDir/dokka"
+}
+
+artifacts {
+    archives sourcesJar
+    archives dokkaJar
+}
+
 repositories {
     mavenCentral()
 }
