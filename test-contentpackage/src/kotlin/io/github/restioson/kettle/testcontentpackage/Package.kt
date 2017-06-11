@@ -1,4 +1,4 @@
-package io.github.restioson.kettle.test_contentpackage
+package io.github.restioson.kettle.testcontentpackage
 
 import io.github.restioson.kettle.api.ClientSidePackage
 import io.github.restioson.kettle.api.ContentPackage

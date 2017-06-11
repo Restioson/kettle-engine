@@ -12,6 +12,9 @@ buildscript {
     }
 }
 apply plugin: 'kotlin'
+apply plugin: 'maven'
+
+group = "io.github.restioson"
 
 allprojects {
     apply plugin: "eclipse"

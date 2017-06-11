@@ -1,4 +1,4 @@
-package io.github.restioson.kettle.test_contentpackage
+package io.github.restioson.kettle.testcontentpackage
 
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.graphics.Texture
