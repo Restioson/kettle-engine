@@ -1,0 +1,6 @@
+jdk:
+  - oraclejdk8
+
+script:
+  - gradle build
+  - gradle sourcesJar
