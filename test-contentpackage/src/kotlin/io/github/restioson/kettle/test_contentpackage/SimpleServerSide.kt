@@ -20,7 +20,7 @@ class SimpleServerSide(engine: Kettle) : Box2DServerSide(engine) {
 
     init {
         // Set up physics
-        Units.PIXELS_TO_METERS = 1f
+        Units.PIXELS_TO_METERS = 5f
     }
 
     override fun create() {
@@ -38,7 +38,9 @@ class SimpleServerSide(engine: Kettle) : Box2DServerSide(engine) {
                             .add(BodyComponentBuilder()
                                     .withBody(BodyDef.BodyType.DynamicBody)
                                     .withBoxFixture(256f, 256f, true)
-                                    .build(this, this@SimpleServerSide.level.world)
+                                    .build(this, this@SimpleServerSide.level.world).apply {
+                                this.body!!.applyLinearImpulse(10f * body!!.mass, 0f, 0f, 0f, true)
+                            }
                             )
             )
         }

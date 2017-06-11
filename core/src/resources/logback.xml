@@ -1,0 +1,25 @@
+<configuration debug="true">
+
+    <timestamp key="time" datePattern="yyyy-MM-dd'T'HH-mm-ss-SSSXX"/>
+
+    <!-- Append to stdout -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Append to "kettle-[time].log" -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/kettle-${time}.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
