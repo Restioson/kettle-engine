@@ -4,3 +4,5 @@ jdk:
 script:
   - gradle build
   - gradle sourcesJar
+  - gradle jar
+  - touch test.txt
