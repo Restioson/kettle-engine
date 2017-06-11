@@ -25,7 +25,7 @@ class SimpleServerSide(engine: Kettle) : Box2DServerSide(engine) {
 
     override fun create() {
 
-        logger.info("Spawning entity...")
+        logger.debug("Spawning entity...")
 
         // Create entity
         this.level.entityEngine.apply {
@@ -45,6 +45,6 @@ class SimpleServerSide(engine: Kettle) : Box2DServerSide(engine) {
             )
         }
 
-        logger.info("Entity successfully spawned!")
+        logger.debug("Entity successfully spawned!")
     }
 }
