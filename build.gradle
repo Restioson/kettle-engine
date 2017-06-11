@@ -129,7 +129,7 @@ tasks.eclipse.doLast {
 subprojects {
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
-        from sourceSets.main.java
+        from sourceSets.main.allSource
     }
 
     task dokkaJar(type: Jar, dependsOn: classes) {
