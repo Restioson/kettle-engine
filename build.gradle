@@ -128,14 +128,14 @@ tasks.eclipse.doLast {
 
 subprojects {
 
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
+    task sourcesJar(type: Jar) {
         from sourceSets.main.allSource
+        classifier = 'sources'
     }
 
-    task javadocJar(type: Jar, dependsOn: classes) {
-        classifier = 'javadoc'
+    task javadocJar(type: Jar) {
         from "$buildDir/dokka"
+        classifier = 'javadoc'
     }
 
     artifacts {
