@@ -52,3 +52,8 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
