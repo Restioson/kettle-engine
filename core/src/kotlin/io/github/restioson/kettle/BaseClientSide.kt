@@ -8,7 +8,7 @@ import io.github.restioson.kettle.screen.SimpleScreen
 /**
  * Base implementation of ClientSidePackage
  */
-open class ClientSide(val engine: Kettle, override val level: Level, val width: Float, val height: Float) : ClientSidePackage {
+open class BaseClientSide(val engine: Kettle, override val level: Level, val width: Float, val height: Float) : ClientSidePackage {
 
     /**
      * The GameScreen which is currently in use
@@ -53,7 +53,7 @@ open class ClientSide(val engine: Kettle, override val level: Level, val width: 
     }
 
     /**
-     * This is called when the ClientSide is no longer needed, so at exit of the game
+     * This is called when the BaseClientSide is no longer needed, so at exit of the game
      *
      * Dispose of any internal assets used here
      */

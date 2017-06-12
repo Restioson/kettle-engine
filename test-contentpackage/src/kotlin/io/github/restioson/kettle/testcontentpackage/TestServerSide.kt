@@ -12,7 +12,7 @@ import io.github.restioson.kettle.entity.component.BodyComponentBuilder
 import io.github.restioson.kettle.level.Box2DLevel
 import mu.KLogging
 
-class SimpleServerSide(engine: Kettle) : Box2DServerSide(engine) {
+class TestServerSide(engine: Kettle) : Box2DServerSide(engine) {
 
     override var level: Level = Box2DLevel(engine)
 
@@ -38,7 +38,7 @@ class SimpleServerSide(engine: Kettle) : Box2DServerSide(engine) {
                             .add(BodyComponentBuilder()
                                     .withBody(BodyDef.BodyType.DynamicBody)
                                     .withBoxFixture(256f, 256f, true)
-                                    .build(this, this@SimpleServerSide.level.world).apply {
+                                    .build(this, this@TestServerSide.level.world).apply {
                                         this.body!!.applyLinearImpulse(10f * body!!.mass, 0f, 0f, 0f, true)
                                     }
                             )

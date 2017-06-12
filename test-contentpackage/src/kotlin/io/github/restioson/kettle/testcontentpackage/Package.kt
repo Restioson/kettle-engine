@@ -12,8 +12,8 @@ class Package : ContentPackage {
     override lateinit var serverSide: ServerSidePackage
 
     override fun create() {
-        this.serverSide = SimpleServerSide(this.engine)
-        this.clientSide = SimpleClientSide(this.engine, this.serverSide.level, 640f, 360f) // TODO separate server from client
+        this.serverSide = TestServerSide(this.engine)
+        this.clientSide = TestClientSide(this.engine, this.serverSide.level, 640f, 360f) // TODO separate server from client
     }
 
 }
