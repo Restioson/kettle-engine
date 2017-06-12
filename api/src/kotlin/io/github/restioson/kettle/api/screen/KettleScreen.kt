@@ -17,7 +17,7 @@ interface KettleScreen : Screen {
     val guiCamera: Camera
 
     /**
-     * Render GUI
+     * Render
      */
     override fun render(delta: Float): Unit {
     }

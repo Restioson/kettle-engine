@@ -7,7 +7,7 @@ import io.github.restioson.kettle.api.Level
 import io.github.restioson.kettle.api.screen.KettleScreen
 import io.github.restioson.kettle.entity.system.SpriteRenderer
 
-class SimpleScreen(override val engine: Kettle, val level: Level, w: Float, h: Float) : KettleScreen {
+class SpriteScreen(override val engine: Kettle, val level: Level, w: Float, h: Float) : KettleScreen {
 
     override val guiCamera: Camera = OrthographicCamera(w, h)
 

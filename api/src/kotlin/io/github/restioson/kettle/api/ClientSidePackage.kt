@@ -17,7 +17,6 @@ interface ClientSidePackage {
     /**
      * Current level
      */
-    // TODO ClientLevel interface?
     val level: Level
 
     /**

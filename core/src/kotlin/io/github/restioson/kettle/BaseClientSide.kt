@@ -3,7 +3,7 @@ package io.github.restioson.kettle
 import io.github.restioson.kettle.api.ClientSidePackage
 import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.Level
-import io.github.restioson.kettle.screen.SimpleScreen
+import io.github.restioson.kettle.screen.SpriteScreen
 
 /**
  * Base implementation of ClientSidePackage
@@ -13,9 +13,9 @@ open class BaseClientSide(val engine: Kettle, override val level: Level, val wid
     /**
      * The GameScreen which is currently in use
      *
-     * In this case it is an instance of SimpleScreen, which just initialises and adds a SpriteRenderingSystem
+     * In this case it is an instance of SpriteScreen, which just initialises and adds a SpriteRenderingSystem
      */
-    override lateinit var screen: SimpleScreen
+    override lateinit var screen: SpriteScreen
 
     /**
      * Register assets here
@@ -34,7 +34,7 @@ open class BaseClientSide(val engine: Kettle, override val level: Level, val wid
      * For instance, GUI would be initialised here
      */
     override fun create() {
-        this.screen = SimpleScreen(this.engine, this.level, this.width, this.height)
+        this.screen = SpriteScreen(this.engine, this.level, this.width, this.height)
         this.engine.kScreen = this.screen
     }
 
