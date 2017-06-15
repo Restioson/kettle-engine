@@ -22,7 +22,12 @@ interface ContentPackage {
     var serverSide: ServerSidePackage
 
     /**
-     * Called after [engine] is set, so create clientSide and serverSide here
+     * Initialise [ClientSidePackage]. Create [ClientSidePackage] and call [ClientSidePackage.init]
+     */
+    fun initClient()
+
+    /**
+     * Called after [engine] is set, so initialise (not create) clientSide and serverSide here
      */
     fun create()
 

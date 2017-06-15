@@ -3,19 +3,20 @@ package io.github.restioson.kettle
 import io.github.restioson.kettle.api.ClientSidePackage
 import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.Level
+import io.github.restioson.kettle.api.screen.KettleScreen
 import io.github.restioson.kettle.screen.SpriteScreen
 
 /**
  * Base implementation of ClientSidePackage
  */
-open class SpriteClientSide(val engine: Kettle, override val level: Level, val width: Float, val height: Float) : ClientSidePackage {
+open class SpriteClientSide(val engine: Kettle, override var level: Level, val width: Float, val height: Float) : ClientSidePackage {
 
     /**
      * The GameScreen which is currently in use
      *
      * In this case it is an instance of SpriteScreen, which just initialises and adds a SpriteRenderingSystem
      */
-    override lateinit var screen: SpriteScreen
+    override lateinit var screen: KettleScreen
 
     /**
      * Register assets here
@@ -25,7 +26,7 @@ open class SpriteClientSide(val engine: Kettle, override val level: Level, val w
      * this.engine.registerAsset(AssetDescriptor("mySprite.png", Texture::class))
      * ```
      */
-    init {
+    override fun init() {
     }
 
     /**

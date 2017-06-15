@@ -4,20 +4,23 @@ import io.github.restioson.kettle.api.screen.KettleScreen
 
 /**
  * Client side logic for content packages should go here
- *
- * Register assets in constructor
  */
 interface ClientSidePackage {
 
     /**
      * Current screen
      */
-    val screen: KettleScreen
+    var screen: KettleScreen
 
     /**
      * Current level
      */
-    val level: Level
+    var level: Level
+
+    /**
+     * Register assets, multiplexers, and initialise here
+     */
+    fun init()
 
     /**
      * Called after assets are loaded, so initialise things requiring assets here

@@ -5,6 +5,7 @@ import ch.qos.logback.classic.Logger
 import com.badlogic.ashley.core.Family
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import io.github.restioson.kettle.api.ContentPackage
 import io.github.restioson.kettle.api.Kettle
@@ -21,6 +22,8 @@ import org.slf4j.LoggerFactory
 class Engine : Game(), Kettle {
 
     override lateinit var assetManager: AssetManager
+    override lateinit var multiplexer: InputMultiplexer
+
     private lateinit var contentPackage: ContentPackage
     private var delta: Float = 0f
 
@@ -33,20 +36,26 @@ class Engine : Game(), Kettle {
     override fun create() {
 
         logger.info("Starting Kettle...")
+
         // Initialise fields
         this.assetManager = AssetManager()
+        this.multiplexer = InputMultiplexer()
 
         this.contentPackage = this.findContentPackage()
         this.initContentPackage(this.contentPackage)
 
         this.contentPackage.create() // TODO separate client from server
+        this.contentPackage.initClient()
         this.assetManager.finishLoading()
 
-        // TODO see AssetLocationComponentListener todo
         this.contentPackage.clientSide.level.entityEngine.addEntityListener(Family.all(AssetLocationComponent::class.java).get(), AssetLocationComponentListener(this))
+
+        // TODO see AssetLocationComponentListener todo
 
         this.contentPackage.serverSide.create()
         this.contentPackage.clientSide.create()
+
+        Gdx.input.inputProcessor = multiplexer
 
     }
 

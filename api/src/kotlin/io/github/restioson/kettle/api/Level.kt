@@ -28,6 +28,11 @@ interface Level {
     var paused: Boolean
 
     /**
+     * Called on creation of level
+     */
+    fun create()
+
+    /**
      * Steps this level by a single tick
      *
      * @param delta the delta time

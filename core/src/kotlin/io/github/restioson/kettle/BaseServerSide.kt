@@ -11,6 +11,7 @@ abstract class BaseServerSide : ServerSidePackage {
     abstract override var level: Level
 
     override fun create() {
+        this.level.create()
     }
 
     override fun step(delta: Float) {

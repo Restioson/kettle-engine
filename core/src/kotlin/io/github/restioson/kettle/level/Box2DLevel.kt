@@ -7,13 +7,16 @@ import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.Level
 import io.github.restioson.kettle.api.physics.Units
 
-class Box2DLevel(override val engine: Kettle) : Level {
+open class Box2DLevel(override val engine: Kettle) : Level {
 
     override var entityEngine = PooledEngine()
 
     override var paused = false
 
     override var world = World(Vector2(0f, -9.8f * Units.PIXELS_TO_METERS), true)
+
+    override fun create() {
+    }
 
     override fun step(delta: Float) {
         this.world.step(delta, 6, 2)

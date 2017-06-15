@@ -9,13 +9,18 @@ import io.github.restioson.kettle.SpriteClientSide
 import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.Level
 
-class TestClientSide(engine: Kettle, level: Level, width: Float, height: Float) : SpriteClientSide(engine, level, width, height) {
+class TestClientSide(engine: Kettle, override var level: Level, width: Float, height: Float) : SpriteClientSide(engine, level, width, height) {
 
-    init {
+    override fun init() {
         this.engine.assetManager.apply {
             setLoader(Texture::class.java, TextureLoader(LocalFileHandleResolver()))
             load(AssetDescriptor(Gdx.files.local("assets/chicken.png"), Texture::class.java))
         }
+    }
+
+    override fun create() {
+        super.create()
+        this.engine.multiplexer.addProcessor(PlayerInputProcessor((this.level as TestLevel).player))
     }
 
 }

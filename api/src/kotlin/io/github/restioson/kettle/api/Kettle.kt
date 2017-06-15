@@ -1,5 +1,6 @@
 package io.github.restioson.kettle.api
 
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import io.github.restioson.kettle.api.screen.KettleScreen
 
@@ -18,4 +19,8 @@ interface Kettle {
      */
     var assetManager: AssetManager
 
+    /**
+     * InputMultiplexer for handling input
+     */
+    var multiplexer: InputMultiplexer
 }
