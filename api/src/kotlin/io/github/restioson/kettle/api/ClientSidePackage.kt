@@ -10,12 +10,12 @@ interface ClientSidePackage {
     /**
      * Current screen
      */
-    var screen: KettleScreen
+    var kScreen: KettleScreen
 
     /**
      * Current level
      */
-    var level: Level
+    var kLevel: Level
 
     /**
      * Register assets, multiplexers, and initialise here

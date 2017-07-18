@@ -19,11 +19,12 @@ open class SpriteRenderer(w: Float, h: Float) : Renderer() {
 
     override final val camera: Camera = OrthographicCamera(w, h)
     override val viewport: Viewport = FitViewport(w, h, camera)
+
     override val queuedEntities: Array<Entity> = Array()
+
     val batch: SpriteBatch = SpriteBatch()
 
     override fun update(delta: Float) {
-
         super.update(delta)
 
         this.batch.projectionMatrix = camera.combined
@@ -34,10 +35,18 @@ open class SpriteRenderer(w: Float, h: Float) : Renderer() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         for (entity in this.queuedEntities) {
-            this.batch.draw(ComponentMappers.GRAPHICS[entity].texture!!, // TODO TextureRegion
-                    ComponentMappers.BODY[entity].body!!.position.x * Units.PIXELS_TO_METERS,
-                    ComponentMappers.BODY[entity].body!!.position.y * Units.PIXELS_TO_METERS
-            )
+
+            // Atomic for concurrency
+            // TODO is this fast?
+            val body = ComponentMappers.BODY[entity].body
+            val texture = ComponentMappers.GRAPHICS[entity].texture
+
+            if (body != null && texture != null) {
+                this.batch.draw(texture, // TODO TextureRegion
+                        body.position.x * Units.METERS_IN_PIXELS,
+                        body.position.y * Units.METERS_IN_PIXELS
+                )
+            }
         }
 
         this.batch.end()

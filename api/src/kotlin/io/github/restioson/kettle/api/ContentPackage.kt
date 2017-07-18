@@ -14,12 +14,12 @@ interface ContentPackage {
     /**
      * Logic for Client side stuff
      */
-    var clientSide: ClientSidePackage
+    var kClientSide: ClientSidePackage
 
     /**
      * Logic for Server side stuff
      */
-    var serverSide: ServerSidePackage
+    var kServerSide: ServerSidePackage
 
     /**
      * Initialise [ClientSidePackage]. Create [ClientSidePackage] and call [ClientSidePackage.init]

@@ -8,22 +8,22 @@ import io.github.restioson.kettle.api.ServerSidePackage
  */
 abstract class BaseServerSide : ServerSidePackage {
 
-    abstract override var level: Level
+    abstract override var kLevel: Level
 
     override fun create() {
-        this.level.create()
+        this.kLevel.create()
     }
 
     override fun step(delta: Float) {
-        this.level.step(delta)
+        this.kLevel.step(delta)
     }
 
     override fun pause() {
-        this.level.pause()
+        this.kLevel.pause()
     }
 
     override fun resume() {
-        this.level.resume()
+        this.kLevel.resume()
     }
 
     override fun dispose() {

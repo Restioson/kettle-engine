@@ -13,6 +13,7 @@ interface Level {
     /**
      * Instance of the Box2D world
      */
+    // TODO make Box2DLevel with this
     var world: World
 
     /**

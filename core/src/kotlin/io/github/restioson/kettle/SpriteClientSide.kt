@@ -9,14 +9,20 @@ import io.github.restioson.kettle.screen.SpriteScreen
 /**
  * Base implementation of ClientSidePackage
  */
-open class SpriteClientSide(val engine: Kettle, override var level: Level, val width: Float, val height: Float) : ClientSidePackage {
+open class SpriteClientSide(val engine: Kettle, level: Level, private val width: Float, private val height: Float) : ClientSidePackage {
+
+    override var kLevel = level
+        set(o) {
+            this.kLevel = o
+            this.kScreen = SpriteScreen(o, this.width, this.height)
+        }
 
     /**
      * The GameScreen which is currently in use
      *
      * In this case it is an instance of SpriteScreen, which just initialises and adds a SpriteRenderingSystem
      */
-    override lateinit var screen: KettleScreen
+    override lateinit var kScreen: KettleScreen
 
     /**
      * Register assets here
@@ -35,22 +41,22 @@ open class SpriteClientSide(val engine: Kettle, override var level: Level, val w
      * For instance, GUI would be initialised here
      */
     override fun create() {
-        this.screen = SpriteScreen(this.engine, this.level, this.width, this.height)
-        this.engine.kScreen = this.screen
+        this.kScreen = SpriteScreen(this.kLevel, this.width, this.height)
+        this.engine.kScreen = this.kScreen
     }
 
     /**
      * This is called when the game is paused
      */
     override fun pause() {
-        this.screen.pause()
+        this.kScreen.pause()
     }
 
     /**
      * This is called when the game is unpaused
      */
     override fun resume() {
-        this.screen.resume()
+        this.kScreen.resume()
     }
 
     /**
@@ -59,6 +65,6 @@ open class SpriteClientSide(val engine: Kettle, override var level: Level, val w
      * Dispose of any internal assets used here
      */
     override fun dispose() {
-        this.screen.dispose()
+        this.kScreen.dispose()
     }
 }

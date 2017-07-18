@@ -12,6 +12,7 @@ import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.screen.KettleScreen
 import io.github.restioson.kettle.entity.component.AssetLocationComponent
 import io.github.restioson.kettle.entity.listener.AssetLocationComponentListener
+import io.github.restioson.kettle.script.Batch
 import mu.KLogging
 import org.reflections.Reflections
 import org.slf4j.LoggerFactory
@@ -48,43 +49,47 @@ class Engine : Game(), Kettle {
         this.contentPackage.initClient()
         this.assetManager.finishLoading()
 
-        this.contentPackage.clientSide.level.entityEngine.addEntityListener(Family.all(AssetLocationComponent::class.java).get(), AssetLocationComponentListener(this))
+        this.contentPackage.kClientSide.kLevel.entityEngine.addEntityListener(Family.all(AssetLocationComponent::class.java).get(), AssetLocationComponentListener(this))
 
         // TODO see AssetLocationComponentListener todo
 
-        this.contentPackage.serverSide.create()
-        this.contentPackage.clientSide.create()
+        this.contentPackage.kServerSide.create()
+        this.contentPackage.kClientSide.create()
 
         Gdx.input.inputProcessor = multiplexer
 
     }
 
+    // TODO: Separate game ticks from render
     override fun render() {
 
         delta = Gdx.graphics.deltaTime
 
+        // Render screen
         super.render()
 
-        // TODO: Separate game ticks from render
-        this.contentPackage.serverSide.step(delta)
+        Batch.execute(delta)
+
+        // Update server side
+        this.contentPackage.kServerSide.step(delta)
     }
 
     override fun dispose() {
-        this.contentPackage.clientSide.dispose()
-        this.contentPackage.serverSide.dispose()
+        this.contentPackage.kClientSide.dispose()
+        this.contentPackage.kServerSide.dispose()
         this.assetManager.dispose()
     }
 
     override fun pause() {
         super.pause()
-        this.contentPackage.clientSide.pause()
-        this.contentPackage.serverSide.pause()
+        this.contentPackage.kClientSide.pause()
+        this.contentPackage.kServerSide.pause()
     }
 
     override fun resume() {
         super.resume()
-        this.contentPackage.clientSide.resume()
-        this.contentPackage.serverSide.resume()
+        this.contentPackage.kClientSide.resume()
+        this.contentPackage.kServerSide.resume()
     }
 
     private fun findContentPackage(): ContentPackage {

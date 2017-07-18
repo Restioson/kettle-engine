@@ -7,9 +7,8 @@ import com.badlogic.gdx.assets.loaders.resolvers.LocalFileHandleResolver
 import com.badlogic.gdx.graphics.Texture
 import io.github.restioson.kettle.SpriteClientSide
 import io.github.restioson.kettle.api.Kettle
-import io.github.restioson.kettle.api.Level
 
-class TestClientSide(engine: Kettle, override var level: Level, width: Float, height: Float) : SpriteClientSide(engine, level, width, height) {
+class TestClientSide(engine: Kettle, private var level: TestLevel, var width: Float, var height: Float) : SpriteClientSide(engine, level, width, height) {
 
     override fun init() {
         this.engine.assetManager.apply {
@@ -19,8 +18,9 @@ class TestClientSide(engine: Kettle, override var level: Level, width: Float, he
     }
 
     override fun create() {
-        super.create()
-        this.engine.multiplexer.addProcessor(PlayerInputProcessor((this.level as TestLevel).player))
+        this.kScreen = TestScreen(this.kLevel, this.width, this.height)
+        this.engine.kScreen = this.kScreen
+        this.engine.multiplexer.addProcessor(PlayerInputProcessor(this.level.player))
     }
 
 }

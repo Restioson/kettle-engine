@@ -10,6 +10,6 @@ import io.github.restioson.kettle.level.Box2DLevel
 
 open class Box2DServerSide(engine: Kettle) : BaseServerSide() {
 
-    override var level: Level = Box2DLevel(engine)
+    override var kLevel: Level = Box2DLevel(engine)
 
 }

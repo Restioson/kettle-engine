@@ -68,7 +68,7 @@ class BodyComponentBuilder(jointDefSize: Int = 2, fixtureDefSize: Int = 1) {
         if (!isPixels) {
             shape.setAsBox(width / 2, height / 2)
         } else {
-            shape.setAsBox(width * Units.METERS_TO_PIXELS / 2, height * Units.METERS_TO_PIXELS / 2)
+            shape.setAsBox(width * Units.PIXELS_IN_METERS / 2, height * Units.PIXELS_IN_METERS / 2)
         }
 
         this.withFixture(shape, density)

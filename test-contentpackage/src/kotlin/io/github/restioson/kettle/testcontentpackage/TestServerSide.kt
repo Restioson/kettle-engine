@@ -8,13 +8,13 @@ import mu.KLogging
 
 class TestServerSide(engine: Kettle) : Box2DServerSide(engine) {
 
-    override var level: Level = TestLevel(engine)
+    override var kLevel: Level = TestLevel(engine)
 
     companion object : KLogging()
 
     init {
         // Set up physics
-        Units.PIXELS_TO_METERS = 1f
+        Units.METERS_IN_PIXELS = 16f
     }
 
 }

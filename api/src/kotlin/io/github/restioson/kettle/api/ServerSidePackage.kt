@@ -5,7 +5,7 @@ package io.github.restioson.kettle.api
  */
 interface ServerSidePackage {
 
-    var level: Level
+    var kLevel: Level
 
     /**
      * Called after clientside and serverside is created
