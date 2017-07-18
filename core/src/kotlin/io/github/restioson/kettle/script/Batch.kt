@@ -1,6 +1,8 @@
 package io.github.restioson.kettle.script
 
 import io.github.restioson.kettle.api.Threadsafe
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.async
 import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
 import kotlin.coroutines.experimental.Continuation
@@ -13,8 +15,6 @@ import kotlin.coroutines.experimental.suspendCoroutine
  *
  * ```kotlin
  * launch(CommonPool) {
- *     waitForSomething()
- *
  *     // Suspends coroutine until run
  *     // This will run in the update loop, which makes sure that
  *     // every hardware running the game will have the same speed
@@ -23,10 +23,12 @@ import kotlin.coroutines.experimental.suspendCoroutine
  *          return updateGamestate(delta)
  *     }
  *
- *     // Cannot get return value from schedule, use run for that
- *     // Use this if you need to asynchronously schedule a func
- *     // to be run on the main thread in the update loop
- *     Batch.schedule {
+ *     // Returns a Deffered<T> which deffers the return
+ *     // value of the function.
+ *     // Use this if you need to schedule a func and
+ *     // continue with coroutine, maybe checking back
+ *     // to the Deffered<T> returned
+ *     val defferedReturn = Batch.schedule {
  *         updateGamestateNoReturn(it) // it is the default
  *                                     // param name
  *     }
@@ -34,7 +36,7 @@ import kotlin.coroutines.experimental.suspendCoroutine
  * }
  *
  * // Schedule can be called outside of coroutines!
- * // run can only be called in coroutines and suspending
+ * // Run can only be called in coroutines and suspending
  * // functions, as it is a suspending function
  * Batch.schedule {
  *     updateGamestate()
@@ -62,17 +64,27 @@ object Batch {
     private val batch: Queue<BatchedFunc<*>> = ConcurrentLinkedQueue()
 
     /**
-     * Schedules a function to be run.
+     * Schedules a function to be run
      *
      * This method is threadsafe
+     *
+     * @param func the function to be scheduled
+     * @return an instance of `Deffered<R>` which can be used to get the return of `func`
      */
     @Threadsafe
-    fun <R> schedule(func: (Float) -> R) = batch.add(BatchedFunc(func, null))
+    fun <R> schedule(func: (Float) -> R) = async(CommonPool) {
+        Batch.run(func)
+    }
 
     /**
      * Schedules a function to be run, suspends the coroutine, and resumes it with the return of the function.
      *
      * This method is threadsafe
+     *
+     * Unsuspends the coroutine with the return of `func` (via [BatchedFunc])
+     *
+     * @param func the function to be scheduled
+     *
      */
     @Threadsafe
     suspend fun <R> run(func: (Float) -> R): R = suspendCoroutine {
@@ -83,6 +95,8 @@ object Batch {
      * Runs the batched functions
      *
      * This method is threadsafe
+     *
+     * @param delta the time from this tick to last
      */
     @Threadsafe
     internal fun execute(delta: Float) {
