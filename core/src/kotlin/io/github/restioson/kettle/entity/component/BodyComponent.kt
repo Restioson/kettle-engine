@@ -1,6 +1,10 @@
 package io.github.restioson.kettle.entity.component
 
-import com.badlogic.gdx.physics.box2d.*
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.physics.box2d.FixtureDef
+import com.badlogic.gdx.physics.box2d.PolygonShape
+import com.badlogic.gdx.physics.box2d.Shape
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.Pool
 import io.github.restioson.kettle.api.serialization.KettleBuffer
@@ -13,7 +17,7 @@ import io.github.restioson.kettle.api.serialization.SerializableComponent
  * Use BodyComponentBuilder to instantiate
  */
 
-// TODO serialise?
+// TODO serialize?
 class BodyComponent : SerializableComponent, Pool.Poolable {
 
     override var sync = true
@@ -23,11 +27,13 @@ class BodyComponent : SerializableComponent, Pool.Poolable {
     var body: Body? = null
     val fixtureDefs = Array<FixtureDef>(false, 1)
 
+    // TODO this can go to builder
     fun createFixture(fixtureDef: FixtureDef) {
         this.body?.createFixture(fixtureDef)
         this.fixtureDefs.add(fixtureDef)
     }
 
+    // TODO this can go to builder
     fun createFixture(shape: Shape, density: Float) {
         this.body?.createFixture(shape, density)
         this.fixtureDefs.add(FixtureDef().apply {
@@ -36,6 +42,7 @@ class BodyComponent : SerializableComponent, Pool.Poolable {
         })
     }
 
+    // TODO this can go to builder
     fun createBoxFixture(width: Float, height: Float, density: Float) {
         val shape = PolygonShape()
         shape.setAsBox(width, height)
@@ -45,7 +52,6 @@ class BodyComponent : SerializableComponent, Pool.Poolable {
     override fun serialize(buffer: KettleBuffer, extraList: ArrayList<KettleSerializable>) {
 
         // Make sure that bodyDef and body are filled
-
 
     }
 

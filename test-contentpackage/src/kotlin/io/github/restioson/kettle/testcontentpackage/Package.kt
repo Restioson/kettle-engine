@@ -17,7 +17,7 @@ class Package : ContentPackage {
     }
 
     override fun create() {
-        this.kServerSide = TestServerSide(this.engine)
+        this.kServerSide = TestServerSide()
     }
 
 }

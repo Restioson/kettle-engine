@@ -1,20 +1,8 @@
 package io.github.restioson.kettle.api
 
 import com.badlogic.ashley.core.PooledEngine
-import com.badlogic.gdx.physics.box2d.World
 
 interface Level {
-
-    /**
-     * Reference to the engine simulating this Level
-     */
-    val engine: Kettle
-
-    /**
-     * Instance of the Box2D world
-     */
-    // TODO make Box2DLevel with this
-    var world: World
 
     /**
      * Ashley entity engine
@@ -24,7 +12,7 @@ interface Level {
     val entityEngine: PooledEngine
 
     /**
-     * Whether game is paused
+     * Whether simulation is paused
      */
     var paused: Boolean
 

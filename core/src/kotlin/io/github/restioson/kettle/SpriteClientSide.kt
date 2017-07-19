@@ -1,26 +1,22 @@
 package io.github.restioson.kettle
 
+import io.github.restioson.kettle.api.Box2DLevel
 import io.github.restioson.kettle.api.ClientSidePackage
 import io.github.restioson.kettle.api.Kettle
-import io.github.restioson.kettle.api.Level
 import io.github.restioson.kettle.api.screen.KettleScreen
 import io.github.restioson.kettle.screen.SpriteScreen
 
 /**
  * Base implementation of ClientSidePackage
  */
-open class SpriteClientSide(val engine: Kettle, level: Level, private val width: Float, private val height: Float) : ClientSidePackage {
+open class SpriteClientSide(val engine: Kettle, level: Box2DLevel, private val width: Float, private val height: Float) : ClientSidePackage {
 
-    override var kLevel = level
-        set(o) {
-            this.kLevel = o
-            this.kScreen = SpriteScreen(o, this.width, this.height)
-        }
+    var kLevel = level
 
     /**
      * The GameScreen which is currently in use
      *
-     * In this case it is an instance of SpriteScreen, which just initialises and adds a SpriteRenderingSystem
+     * In this case it is an instance of SpriteScreen, which just initializes and adds a SpriteRenderingSystem
      */
     override lateinit var kScreen: KettleScreen
 
@@ -38,7 +34,7 @@ open class SpriteClientSide(val engine: Kettle, level: Level, private val width:
     /**
      * This function is called after assets are loaded
      *
-     * For instance, GUI would be initialised here
+     * For instance, GUI would be initialized here
      */
     override fun create() {
         this.kScreen = SpriteScreen(this.kLevel, this.width, this.height)

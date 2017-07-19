@@ -1,15 +1,14 @@
 package io.github.restioson.kettle
 
-import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.Level
-import io.github.restioson.kettle.level.Box2DLevel
+import io.github.restioson.kettle.level.Level2D
 
 /**
  * Base implementation of ServerSidePackage
  */
 
-open class Box2DServerSide(engine: Kettle) : BaseServerSide() {
+open class Box2DServerSide : BaseServerSide() {
 
-    override var kLevel: Level = Box2DLevel(engine)
+    override var kLevel: Level = Level2D()
 
 }

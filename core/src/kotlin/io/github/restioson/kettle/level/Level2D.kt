@@ -3,10 +3,9 @@ package io.github.restioson.kettle.level
 import com.badlogic.ashley.core.PooledEngine
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.World
-import io.github.restioson.kettle.api.Kettle
-import io.github.restioson.kettle.api.Level
+import io.github.restioson.kettle.api.Box2DLevel
 
-open class Box2DLevel(override val engine: Kettle) : Level {
+open class Level2D : Box2DLevel {
 
     override var entityEngine = PooledEngine()
 

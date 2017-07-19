@@ -2,6 +2,7 @@ package io.github.restioson.kettle.api.screen
 
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Camera
+import io.github.restioson.kettle.api.Level
 
 interface KettleScreen : Screen {
 
@@ -9,6 +10,12 @@ interface KettleScreen : Screen {
      * Camera to render GUI with
      */
     val guiCamera: Camera
+
+    /**
+     * Level being displayed.
+     * Used for adding the `AssetLocationComponent` listener to the level *client side*
+     */
+    val kLevel: Level
 
     /**
      * Render

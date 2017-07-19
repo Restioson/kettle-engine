@@ -10,7 +10,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g3d.particles.ParticleEffect
 import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.entity.ComponentMappers
-import io.github.restioson.kettle.entity.component.*
+import io.github.restioson.kettle.entity.component.BitmapFontComponent
+import io.github.restioson.kettle.entity.component.GraphicsComponent
+import io.github.restioson.kettle.entity.component.MusicComponent
+import io.github.restioson.kettle.entity.component.ParticleEffectComponent
+import io.github.restioson.kettle.entity.component.PixmapComponent
+import io.github.restioson.kettle.entity.component.SoundComponent
 
 /**
  * Loads respective components into entities if they have AssetLocationComponents

@@ -5,15 +5,13 @@ import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
-import io.github.restioson.kettle.api.Kettle
 import io.github.restioson.kettle.api.physics.Units
 import io.github.restioson.kettle.entity.component.AssetLocationComponent
 import io.github.restioson.kettle.entity.component.BodyComponentBuilder
-import io.github.restioson.kettle.level.Box2DLevel
+import io.github.restioson.kettle.level.Level2D
 import mu.KLogging
 
-class TestLevel(engine: Kettle) : Box2DLevel(engine) {
-
+class TestLevel : Level2D() {
     internal lateinit var player: Entity
 
     companion object : KLogging()

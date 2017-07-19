@@ -3,11 +3,11 @@ package io.github.restioson.kettle.testcontentpackage
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Matrix4
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
-import io.github.restioson.kettle.api.Level
+import io.github.restioson.kettle.api.Box2DLevel
 import io.github.restioson.kettle.api.physics.Units
 import io.github.restioson.kettle.screen.SpriteScreen
 
-class TestScreen(level: Level, width: Float, height: Float) : SpriteScreen(level, width, height) {
+class TestScreen(level: Box2DLevel, width: Float, height: Float) : SpriteScreen(level, width, height) {
 
     val renderer = Box2DDebugRenderer()
     val matrix = Matrix4(this.guiCamera.combined)
@@ -21,7 +21,7 @@ class TestScreen(level: Level, width: Float, height: Float) : SpriteScreen(level
         super.render(delta)
 
         this.batch.begin()
-        this.renderer.render(this.level.world, matrix)
+        this.renderer.render(this.kLevel.world, matrix)
         this.batch.end()
 
     }

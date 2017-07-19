@@ -13,7 +13,7 @@ import io.github.restioson.kettle.api.physics.Units
 import io.github.restioson.kettle.entity.ComponentMappers
 
 /**
- * Renders entities with a spritebatch
+ * Renders entities in 2D with a spritebatch
  */
 open class SpriteRenderer(w: Float, h: Float) : Renderer() {
 

@@ -13,17 +13,12 @@ interface ClientSidePackage {
     var kScreen: KettleScreen
 
     /**
-     * Current level
-     */
-    var kLevel: Level
-
-    /**
-     * Register assets, multiplexers, and initialise here
+     * Register assets, multiplexers, and initialize here
      */
     fun init()
 
     /**
-     * Called after assets are loaded, so initialise things requiring assets here
+     * Called after assets are loaded, so initialize things requiring assets here
      */
     fun create()
 

@@ -38,7 +38,7 @@ class Engine : Game(), Kettle {
 
         logger.info("Starting Kettle...")
 
-        // Initialise fields
+        // Initialize fields
         this.assetManager = AssetManager()
         this.multiplexer = InputMultiplexer()
 
@@ -49,7 +49,7 @@ class Engine : Game(), Kettle {
         this.contentPackage.initClient()
         this.assetManager.finishLoading()
 
-        this.contentPackage.kClientSide.kLevel.entityEngine.addEntityListener(Family.all(AssetLocationComponent::class.java).get(), AssetLocationComponentListener(this))
+        this.contentPackage.kClientSide.kScreen.kLevel.entityEngine.addEntityListener(Family.all(AssetLocationComponent::class.java).get(), AssetLocationComponentListener(this))
 
         // TODO see AssetLocationComponentListener todo
 

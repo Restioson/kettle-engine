@@ -1,7 +1,14 @@
 package io.github.restioson.kettle.entity
 
 import com.badlogic.ashley.core.ComponentMapper
-import io.github.restioson.kettle.entity.component.*
+import io.github.restioson.kettle.entity.component.AssetLocationComponent
+import io.github.restioson.kettle.entity.component.BitmapFontComponent
+import io.github.restioson.kettle.entity.component.BodyComponent
+import io.github.restioson.kettle.entity.component.GraphicsComponent
+import io.github.restioson.kettle.entity.component.HealthComponent
+import io.github.restioson.kettle.entity.component.MusicComponent
+import io.github.restioson.kettle.entity.component.PixmapComponent
+import io.github.restioson.kettle.entity.component.SoundComponent
 
 /**
  * Object which stores Ashley ComponentMappers

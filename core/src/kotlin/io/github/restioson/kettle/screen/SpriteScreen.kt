@@ -2,16 +2,16 @@ package io.github.restioson.kettle.screen
 
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.OrthographicCamera
-import io.github.restioson.kettle.api.Level
+import io.github.restioson.kettle.api.Box2DLevel
 import io.github.restioson.kettle.api.screen.KettleScreen
 import io.github.restioson.kettle.entity.system.SpriteRenderer
 
-open class SpriteScreen(val level: Level, w: Float, h: Float) : KettleScreen {
+open class SpriteScreen(final override val kLevel: Box2DLevel, w: Float, h: Float) : KettleScreen {
 
     override val guiCamera: Camera = OrthographicCamera(w, h)
 
     init {
-        this.level.entityEngine.addSystem(SpriteRenderer(w, h))
+        this.kLevel.entityEngine.addSystem(SpriteRenderer(w, h))
     }
 
     override fun render(delta: Float) {
