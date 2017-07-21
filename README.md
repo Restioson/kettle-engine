@@ -5,7 +5,7 @@ LibGDX KTX Kotlin game engine
 ## Build Status
 |Development|[![Development](https://travis-ci.org/Restioson/kettle-engine.svg?branch=development "Development Branch")](https://travis-ci.org/Restioson/kettle-engine/)|
 |-----------|---------------------------------------------------------------------------------------------------------|
-|   Master  |      [![Master](https://travis-ci.org/Restioson/kettle-engine.svg?branch=master "Master Branch")](https://travis-ci.org/Restioson/kettle-engine/)|
+|   Master  |[![Master](https://travis-ci.org/Restioson/kettle-engine.svg?branch=master "Master Branch")](https://travis-ci.org/Restioson/kettle-engine/)|
 
 ## About
 This project aims to be a Kotlin game engine with Kotlin "content packages", which add content
