@@ -1,11 +1,11 @@
 package io.github.restioson.kettle.testcontentpackage
 
-import io.github.restioson.kettle.Box2DServerSide
+import io.github.restioson.kettle.BaseServerSide
 import io.github.restioson.kettle.api.Level
 import io.github.restioson.kettle.api.physics.Units
 import mu.KLogging
 
-class TestServerSide : Box2DServerSide() {
+class TestServerSide : BaseServerSide() {
 
     override var kLevel: Level = TestLevel()
 

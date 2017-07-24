@@ -6,6 +6,7 @@ jdk:
 script:
   - ./gradlew ktlintCheck
   - ./gradlew build
+  - ./gradlew test
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
