@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import io.github.restioson.kettle.api.physics.Units
-import io.github.restioson.kettle.entity.ComponentMappers
 import io.github.restioson.kettle.entity.component.AssetLocationComponent
 import io.github.restioson.kettle.entity.component.BodyComponentBuilder
 import io.github.restioson.kettle.level.Level2D
@@ -23,7 +22,6 @@ class TestLevel : Level2D(Vector2(0f, -9.8f)) {
         val floor = BodyDef()
         floor.type = BodyDef.BodyType.StaticBody
         floor.position.set(0f, Units.toMeters(-576 / 2f))
-        println(Units.toMeters(-576 / 2f))
 
         val shape = PolygonShape()
         shape.setAsBox(Units.toMeters(576 / 2f), Units.toMeters(0.5f))
@@ -51,10 +49,5 @@ class TestLevel : Level2D(Vector2(0f, -9.8f)) {
 
         logger.debug("Entity successfully spawned!")
 
-    }
-
-    override fun step(delta: Float) {
-        super.step(delta)
-        println("${ComponentMappers.BODY[this.player].body!!.position}")
     }
 }

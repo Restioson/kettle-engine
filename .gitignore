@@ -65,7 +65,6 @@ Thumbs.db
 
 ## Project
 api/build/
-test-contentpackage/assets/
 gen/
 test-contentpackage/build/
 deploy_key

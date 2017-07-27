@@ -1,9 +1,8 @@
 package io.github.restioson.kettle.testcontentpackage
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.loaders.TextureLoader
-import com.badlogic.gdx.assets.loaders.resolvers.LocalFileHandleResolver
+import com.badlogic.gdx.assets.loaders.resolvers.ClasspathFileHandleResolver
 import com.badlogic.gdx.graphics.Texture
 import io.github.restioson.kettle.SpriteClientSide
 import io.github.restioson.kettle.api.Kettle
@@ -12,8 +11,8 @@ class TestClientSide(engine: Kettle, private var level: TestLevel, var width: Fl
 
     override fun init() {
         this.engine.assetManager.apply {
-            setLoader(Texture::class.java, TextureLoader(LocalFileHandleResolver()))
-            load(AssetDescriptor(Gdx.files.local("assets/chicken.png"), Texture::class.java))
+            setLoader(Texture::class.java, TextureLoader(ClasspathFileHandleResolver()))
+            load(AssetDescriptor("assets/chicken.png", Texture::class.java))
         }
     }
 
